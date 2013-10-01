@@ -59,6 +59,7 @@ SKIP: {
             phone   => '+7 495 5555555',
             e_mail  => 'test@reg.ru',
             country => 'RU',
+<<<<<<< HEAD
         },
         nss => {
             ns0 => 'ns1.reg.ru',
@@ -86,11 +87,43 @@ SKIP: {
             phone   => '+7 495 8102233',
             e_mail  => 'test@reg.ru',
             country => 'RU',
+=======
+>>>>>>> fe333a99aeddfb9f3d5cf55042efd5440411bc9c
         },
         nss => {
             ns0 => 'ns1.reg.ru',
             ns1 => 'ns2.reg.ru',
         },
+<<<<<<< HEAD
+=======
+        domain_name => 'vschizh.su',
+    };
+
+    my $domain_create_answer = $client->domain->create(%$jsondata);
+    ok( $domain_create_answer->is_success, 'domain/create API call test' );
+    is( $domain_create_answer->get('bill_id'),
+        '1234', 'domain/create bill id test' );
+
+    $jsondata = {
+        contacts => {
+            descr  => 'Vschizh site',
+            person => 'Svyatoslav V Ryurik',
+            person_r =>
+                'Рюрик Святослав Владимирович',
+            passport =>
+                '22 44 668800, выдан по месту правления 01.09.1999',
+            birth_date => '01.01.1980',
+            p_addr =>
+                '12345, г. Вщиж, ул. Княжеска, д.1, Рюрику Святославу Владимировичу, князю Вщижскому',
+            phone   => '+7 495 8102233',
+            e_mail  => 'test@reg.ru',
+            country => 'RU',
+        },
+        nss => {
+            ns0 => 'ns1.reg.ru',
+            ns1 => 'ns2.reg.ru',
+        },
+>>>>>>> fe333a99aeddfb9f3d5cf55042efd5440411bc9c
         domains => [
             {   dname           => 'vschizh.ru',
                 srv_certificate => 'free',
@@ -150,6 +183,7 @@ SKIP: {
     ok( $client->domain->get_docs_upload_uri( dname => 'test.ru' )
             ->is_success,
         'domain/get_docs_upload_uri API call test'
+<<<<<<< HEAD
     );
 
     my $update_private_person_flag_answer
@@ -191,6 +225,49 @@ SKIP: {
         'domain/delegate API call test'
     );
 
+=======
+    );
+
+    my $update_private_person_flag_answer
+        = $client->domain->update_private_person_flag(
+        private_person_flag => 0,
+        dname               => 'test.ru'
+        );
+    ok( $update_private_person_flag_answer->is_success,
+        'domain/update_private_person_flag API call test'
+    );
+    is( $update_private_person_flag_answer->get('pp_flag'),
+        'is cleared', 'domain/update_private_person_flag answer test' );
+    ok( $client->domain->register_ns(
+            dname => 'test.com',
+            ns0   => 'ns0.test.com'
+            )->is_success,
+        'domain/register_ns API call test'
+    );
+
+    ok( $client->domain->delete_ns(
+            dname => 'test.com',
+            ns0   => 'ns0.teset.com'
+            )->is_success,
+        'domain/delete_ns API call test'
+    );
+
+    ok( $client->domain->get_nss( dname => 'test.com' )->is_success,
+        'domain/get_nss API call test' );
+
+    ok( $client->domain->update_nss(
+            domains => [ { dname => 'test.ru' } ],
+            nss => { 'ns0' => 'ns1.reg.ru', ns1 => 'ns2.reg.ru' }
+            )->is_success,
+        'domain/update_nss API call test'
+    );
+
+    ok( $client->domain->delegate( domains => [ { dname => 'test.ru' } ] )
+            ->is_success,
+        'domain/delegate API call test'
+    );
+
+>>>>>>> fe333a99aeddfb9f3d5cf55042efd5440411bc9c
     ok( $client->domain->undelegate( domains => [ { dname => 'test.ru' } ] )
             ->is_success,
         'domain/undelegate API call test'

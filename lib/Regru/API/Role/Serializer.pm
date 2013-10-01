@@ -1,37 +1,25 @@
-package Regru::API::Folder;
+package Regru::API::Role::Serializer;
 
-# ABSTRACT: REG.API v2 "folder" category
+# ABSTRACT: REG.API v2 "serializer" role
 
 use strict;
 use warnings;
-use Moo;
+use Moo::Role;
+use JSON;
+use Carp;
 use namespace::autoclean;
 
 our $VERSION = '0.003'; # VERSION
 our $AUTHORITY = 'cpan:IMAGO'; # AUTHORITY
 
-with 'Regru::API::Role::Client';
-
-has '+namespace' => (
-    default => sub { 'folder' },
+has serializer => (
+    is      => 'rw',
+    isa     => sub { croak "$_[0] is not a JSON instance" unless ref $_[0] eq 'JSON' },
+    lazy    => 1,
+    default => sub { JSON->new->utf8 },
 );
 
-sub available_methods {[qw(
-    nop
-    create
-    remove
-    rename
-    get_services
-    add_services
-    remove_services
-    replace_services
-    move_services
-)]}
-
-__PACKAGE__->namespace_methods;
-__PACKAGE__->meta->make_immutable;
-
-1; # End of Regru::API::Folder
+1;  # End of Regru::API::Role::Serializer
 
 __END__
 
@@ -41,65 +29,37 @@ __END__
 
 =head1 NAME
 
-Regru::API::Folder - REG.API v2 "folder" category
+Regru::API::Role::Serializer - REG.API v2 "serializer" role
 
 =head1 VERSION
 
 version 0.003
 
+=head1 SYNOPSIS
+
+    package Regru::API::Client;
+    ...
+    with 'Regru::API::Role::Serializer';
+
+    $str = $self->serializer->encode({ answer => 42, foo => [qw(bar baz quux)] });
+
 =head1 DESCRIPTION
 
-REG.API folder category... (to be described)
+Any class or role that consumes this one will able to (de)serialize JSON.
 
 =head1 ATTRIBUTES
 
-=head2 namespace
+=head2 serializer
 
-...
-
-=head1 METHODS
-
-=head2 nop
-
-...
-
-=head2 create
-
-...
-
-=head2 remove
-
-...
-
-=head2 rename
-
-...
-
-=head2 get_services
-
-...
-
-=head2 add_services
-
-...
-
-=head2 remove_services
-
-...
-
-=head2 replace_services
-
-...
-
-=head2 move_services
-
-...
+Returns an L<JSON> instance with B<utf8> option enabled.
 
 =head1 SEE ALSO
 
 L<Regru::API>
 
 L<Regru::API::Role::Client>
+
+L<JSON>
 
 =head1 BUGS
 

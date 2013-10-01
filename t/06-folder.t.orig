@@ -1,14 +1,21 @@
 use Test::More;
 use Net::Ping;
+use Data::Dumper;
 use Regru::API;
 my $client = Regru::API->new( username => 'test', password => 'test' );
 
+<<<<<<< HEAD
 plan skip_all => "Internet connection problem"
     unless Net::Ping->new->ping('reg.ru');
 
 ok( $client->folder->nop( folder_name => 'qqq' )->is_success,
     'folder/nop API call test' );
 
+=======
+ok( $client->folder->nop( folder_name => 'qqq' )->is_success,
+    'folder/nop API call test' );
+
+>>>>>>> fe333a99aeddfb9f3d5cf55042efd5440411bc9c
 SKIP: {
     skip "For calling all API functions set ALL_TEST env var to 1", 8
         unless $ENV{ALL_TESTS};

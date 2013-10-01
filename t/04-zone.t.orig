@@ -1,4 +1,5 @@
 use Test::More;
+use Data::Dumper;
 use Regru::API;
 use Net::Ping;
 
@@ -16,6 +17,10 @@ SKIP: {
     skip "For calling all API functions set ALL_TEST env var to 1", 14
         unless $ENV{ALL_TESTS};
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> fe333a99aeddfb9f3d5cf55042efd5440411bc9c
     ok( $client->zone->add_alias(
             domains   => [ { dname => 'test.ru' } ],
             subdomain => '@',

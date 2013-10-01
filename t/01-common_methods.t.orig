@@ -9,6 +9,7 @@ my $client = Regru::API->new( username => 'test', password => 'test' );
 
 isa_ok( $client, 'Regru::API::NamespaceHandler', 'Inheritance test' );
 
+<<<<<<< HEAD
 my @methods    = qw/nop reseller_nop get_user_id get_service_id/;
 my @namespaces = qw/user domain zone bill folder service/;
 
@@ -24,6 +25,20 @@ for my $namespace (@namespaces) {
 plan skip_all => "Internet connection problem"
         unless Net::Ping->new->ping('reg.ru');
 
+=======
+
+my @methods    = qw/nop reseller_nop get_user_id get_service_id/;
+my @namespaces = qw/user domain zone bill folder service/;
+
+can_ok($client, @methods);
+can_ok($client, @namespaces);
+
+for my $namespace (@namespaces) {
+	my $handler = $client->$namespace;
+	isa_ok($handler, 'Regru::API::NamespaceHandler');
+}
+
+>>>>>>> fe333a99aeddfb9f3d5cf55042efd5440411bc9c
 # Функции общего назначения
 my $regru_response = $client->nop;
 
@@ -33,7 +48,11 @@ ok( $regru_response->get('login') );
 
 SKIP: {
 
+<<<<<<< HEAD
     skip "For calling all API functions set ALL_TEST env var to 1", 8
+=======
+	skip "For calling all API functions set ALL_TEST env var to 1", 8
+>>>>>>> fe333a99aeddfb9f3d5cf55042efd5440411bc9c
         unless $ENV{ALL_TESTS};
 
     $regru_response = $client->reseller_nop;

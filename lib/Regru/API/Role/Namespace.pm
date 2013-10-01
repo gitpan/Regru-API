@@ -1,37 +1,18 @@
-package Regru::API::Folder;
+package Regru::API::Role::Namespace;
 
-# ABSTRACT: REG.API v2 "folder" category
+# ABSTRACT: REG.API v2 "namespace" role
 
 use strict;
 use warnings;
-use Moo;
+use Moo::Role;
 use namespace::autoclean;
 
 our $VERSION = '0.003'; # VERSION
 our $AUTHORITY = 'cpan:IMAGO'; # AUTHORITY
 
-with 'Regru::API::Role::Client';
+requires 'available_methods';
 
-has '+namespace' => (
-    default => sub { 'folder' },
-);
-
-sub available_methods {[qw(
-    nop
-    create
-    remove
-    rename
-    get_services
-    add_services
-    remove_services
-    replace_services
-    move_services
-)]}
-
-__PACKAGE__->namespace_methods;
-__PACKAGE__->meta->make_immutable;
-
-1; # End of Regru::API::Folder
+1;  # End of Regru::API::Role::Namespace
 
 __END__
 
@@ -41,59 +22,30 @@ __END__
 
 =head1 NAME
 
-Regru::API::Folder - REG.API v2 "folder" category
+Regru::API::Role::Namespace - REG.API v2 "namespace" role
 
 =head1 VERSION
 
 version 0.003
 
+=head1 SYNOPSIS
+
+    package Regru::API::Dummy;
+    ...
+    with 'Regru::API::Role::Namespace';
+
+    sub available_methods { [qw(foo bar baz)] }
+
 =head1 DESCRIPTION
 
-REG.API folder category... (to be described)
+Any class or role that consumes this one will considered as a namespace (or category) in REG.API v2.
 
-=head1 ATTRIBUTES
+=head1 REQUIREMENTS
 
-=head2 namespace
+=head2 available_methods
 
-...
-
-=head1 METHODS
-
-=head2 nop
-
-...
-
-=head2 create
-
-...
-
-=head2 remove
-
-...
-
-=head2 rename
-
-...
-
-=head2 get_services
-
-...
-
-=head2 add_services
-
-...
-
-=head2 remove_services
-
-...
-
-=head2 replace_services
-
-...
-
-=head2 move_services
-
-...
+A list of methods (as array reference) provides by namespace. An empty array reference should be used in
+case of namespace does not provide any methods. But this so odd...
 
 =head1 SEE ALSO
 

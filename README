@@ -1,12 +1,12 @@
 NAME
-    Regru::API - perl client for reg.ru API 2.
+    Regru::API - Perl bindings for Reg.ru API v2
 
 VERSION
-    Version 0.01
+    version 0.003
 
-SYNOPSYS
+SYNOPSIS
         my $client = Regru::API->new(username => 'test', password => 'test');
-        my $response = $client->nop; # makes call for https://www.reg.ru/support/help/API-version2#nop
+        my $response = $client->nop; # makes call for <https://www.reg.com/support/help/API-version2#nop>
 
         if ($response->is_success) {
             say $response->get('user_id');
@@ -18,7 +18,7 @@ SYNOPSYS
 DESCRIPTION
     API calls are divided into categories - user, domain, zone, user,
     folder, bill, service. Each category is stored in it's own namespace,
-    and can be accessed through $client->$namespace method. For example,
+    and can be accessed through "$client->$namespace method". For example,
 
         $client->user->nop
 
@@ -40,7 +40,7 @@ DESCRIPTION
             }
         }
         else {
-            ... 
+            ...
         }
 
     All params for API call is passed to API method call as a hash;
@@ -51,8 +51,6 @@ DESCRIPTION
             currency => 'RUR',
             amount   => 100
         );
-
-
 
         my $jsondata = {
             contacts => {
@@ -79,17 +77,17 @@ DESCRIPTION
 
         if ($domain_create_answer->is_success) {
             say "Domain create request succeeded";
-        } 
+        }
         else {
             die $domain_create_answer->error_text;
         }
 
     NB: All input params for call are passed in JSON format.
 
-    To get service answer, use $response->get($param_name) method.
+    To get service answer, use "$response->get($param_name)" method.
     $param_name is the answer field.
 
-SUBROUTINES/METHODS
+METHODS
   new
         my $client = Regru::API->new(username => 'test', password => 'test');
         my $response = $client->nop;
@@ -129,6 +127,21 @@ SUBROUTINES/METHODS
 
             my $client = Regru::API->new(debug => 1);
 
+  namespace_handlers
+    ...
+
+  nop
+    ...
+
+  reseller_nop
+    ...
+
+  get_user_id
+    ...
+
+  get_service_id
+    ...
+
 Error processing
     If API returned exception or some bad error, such as 500 internal server
     error has happened, $response will store error information and raw
@@ -145,8 +158,8 @@ Error processing
   error_code
     Returns error code if an error occured. Full list error codes list is
     available at
-    <https://www.reg.ru/support/help/API-version2#std_error_codes>. Error
-    code API_FAIL means incorrect answer from API, such as 500 inernal
+    <https://www.reg.com/support/help/API-version2#std_error_codes>. Error
+    code API_FAIL means incorrect answer from API, such as 500 internal
     server error.
 
   error_params
@@ -165,17 +178,36 @@ Error processing
             print "Error: " . $response->error_code . ", " . $response->error_text;
         }
 
-AUTHOR
-    Polina Shubina, "<shubina@reg.ru>"
+SEE ALSO
+    Regru::API::Bill
+
+    Regru::API::Domain
+
+    Regru::API::Folder
+
+    Regru::API::Service
+
+    Regru::API::User
+
+    Regru::API::Zone
+
+    Regru::API::Response
 
 BUGS
-    Please report any bugs or feature requests to "bug-regru-api at
-    rt.cpan.org". I will be notified, and then you'll automatically be
-    notified of progress on your bug as I make changes.
+    Please report any bugs or feature requests on the bugtracker website
+    https://github.com/regru/regru-api-perl/issues
 
-LICENSE AND COPYRIGHT
-    Copyright 2013 Polina Shubina.
+    When submitting a bug or request, please include a test-file or a patch
+    to an existing test-file that illustrates the bug or desired feature.
+
+AUTHORS
+    *   Polina Shubina <shubina@reg.ru>
+
+    *   Anton Gerasimov <a.gerasimov@reg.ru>
+
+COPYRIGHT AND LICENSE
+    This software is copyright (c) 2013 by REG.RU LLC.
 
     This is free software; you can redistribute it and/or modify it under
-    the same terms as Perl itself.
+    the same terms as the Perl 5 programming language system itself.
 

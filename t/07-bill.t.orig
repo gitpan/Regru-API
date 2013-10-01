@@ -3,13 +3,17 @@ use Regru::API;
 use Net::Ping;
 
 my $client = Regru::API->new( username => 'test', password => 'test' );
+<<<<<<< HEAD
 
 plan skip_all => "Internet connection problem"
-    unless Net::Ping->new->ping('reg.ru');
+        unless Net::Ping->new->ping('reg.ru');
+=======
+use Net::Ping;
+my $p = Net::Ping->new;
+>>>>>>> fe333a99aeddfb9f3d5cf55042efd5440411bc9c
 
 ok( $client->bill->nop( bill_id => 1234 )->is_success,
     'bill/nop API call test' );
-
 
 SKIP: {
 

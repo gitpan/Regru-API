@@ -7,8 +7,12 @@ use List::MoreUtils 'any';
 use Carp;
 use Regru::API::Response;
 use JSON;
+<<<<<<< HEAD
 use Data::Dumper;
 use LWP::UserAgent;
+=======
+use URI;
+>>>>>>> fe333a99aeddfb9f3d5cf55042efd5440411bc9c
 
 has 'namespace' => ( is => 'ro', default => sub {q{}} );
 has [ 'username', 'password', 'io_encoding', 'lang', 'debug' ] =>
@@ -109,18 +113,28 @@ sub _api_call {
     return Regru::API::Response->new( response => $response );
 }
 
-
 sub get_ua {
     state $ua;
+<<<<<<< HEAD
 
     $ua //= LWP::UserAgent->new;
+=======
+    return $ua if defined $ua;
+
+    require LWP::UserAgent;
+    $ua = LWP::UserAgent->new;
+>>>>>>> fe333a99aeddfb9f3d5cf55042efd5440411bc9c
     return $ua;
 }
 
 sub get_json {
+<<<<<<< HEAD
     state $json;
 
 	$json //= JSON->new->utf8;
+=======
+    state $json = JSON->new->utf8;
+>>>>>>> fe333a99aeddfb9f3d5cf55042efd5440411bc9c
     return $json;
 }
 
