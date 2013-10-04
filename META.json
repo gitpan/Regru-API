@@ -71,65 +71,67 @@
             "HTTP::Response" : "6.04",
             "IO::Handle" : "0",
             "IPC::Open3" : "0",
+            "Net::Ping" : "2.38",
             "Test::Fatal" : "0.010",
             "Test::More" : "0.98",
             "Test::Pod" : "1.22",
-            "Test::Warnings" : "0.010"
+            "Test::Warnings" : "0.010",
+            "URI" : "1.60"
          }
       }
    },
    "provides" : {
       "Regru::API" : {
          "file" : "lib/Regru/API.pm",
-         "version" : "0.003"
+         "version" : "0.004"
       },
       "Regru::API::Bill" : {
          "file" : "lib/Regru/API/Bill.pm",
-         "version" : "0.003"
+         "version" : "0.004"
       },
       "Regru::API::Domain" : {
          "file" : "lib/Regru/API/Domain.pm",
-         "version" : "0.003"
+         "version" : "0.004"
       },
       "Regru::API::Folder" : {
          "file" : "lib/Regru/API/Folder.pm",
-         "version" : "0.003"
+         "version" : "0.004"
       },
       "Regru::API::Response" : {
          "file" : "lib/Regru/API/Response.pm",
-         "version" : "0.003"
+         "version" : "0.004"
       },
       "Regru::API::Role::Client" : {
          "file" : "lib/Regru/API/Role/Client.pm",
-         "version" : "0.003"
+         "version" : "0.004"
       },
       "Regru::API::Role::Loggable" : {
          "file" : "lib/Regru/API/Role/Loggable.pm",
-         "version" : "0.003"
+         "version" : "0.004"
       },
       "Regru::API::Role::Namespace" : {
          "file" : "lib/Regru/API/Role/Namespace.pm",
-         "version" : "0.003"
+         "version" : "0.004"
       },
       "Regru::API::Role::Serializer" : {
          "file" : "lib/Regru/API/Role/Serializer.pm",
-         "version" : "0.003"
+         "version" : "0.004"
       },
       "Regru::API::Role::UserAgent" : {
          "file" : "lib/Regru/API/Role/UserAgent.pm",
-         "version" : "0.003"
+         "version" : "0.004"
       },
       "Regru::API::Service" : {
          "file" : "lib/Regru/API/Service.pm",
-         "version" : "0.003"
+         "version" : "0.004"
       },
       "Regru::API::User" : {
          "file" : "lib/Regru/API/User.pm",
-         "version" : "0.003"
+         "version" : "0.004"
       },
       "Regru::API::Zone" : {
          "file" : "lib/Regru/API/Zone.pm",
-         "version" : "0.003"
+         "version" : "0.004"
       }
    },
    "release_status" : "stable",
@@ -144,7 +146,7 @@
          "web" : "https://github.com/regru/regru-api-perl"
       }
    },
-   "version" : "0.003",
+   "version" : "0.004",
    "x_authority" : "cpan:IMAGO"
 }
 

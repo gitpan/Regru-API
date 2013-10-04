@@ -7,7 +7,7 @@ use warnings;
 use Moo;
 use namespace::autoclean;
 
-our $VERSION = '0.003'; # VERSION
+our $VERSION = '0.004'; # VERSION
 our $AUTHORITY = 'cpan:IMAGO'; # AUTHORITY
 
 with 'Regru::API::Role::Client';
@@ -60,7 +60,7 @@ Regru::API::Domain - REG.API v2 "domain" category
 
 =head1 VERSION
 
-version 0.003
+version 0.004
 
 =head1 DESCRIPTION
 
@@ -73,7 +73,7 @@ contacts, placing bids on freeing domain names, retrive/update DNS servers for d
 
 Always returns the name of category: C<domain>. For internal usage only.
 
-=head1 METHODS
+=head1 REG.API METHODS
 
 =head2 nop
 

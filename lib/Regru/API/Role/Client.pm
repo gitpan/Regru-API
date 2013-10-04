@@ -1,14 +1,15 @@
 package Regru::API::Role::Client;
 
-# ABSTRACT: REG.API v2 "client" role
+# ABSTRACT: something that makes requests to API
 
 use strict;
 use warnings;
 use Moo::Role;
 use Regru::API::Response;
 use namespace::autoclean;
+use Carp;
 
-our $VERSION = '0.003'; # VERSION
+our $VERSION = '0.004'; # VERSION
 our $AUTHORITY = 'cpan:IMAGO'; # AUTHORITY
 
 with qw(
@@ -18,11 +19,38 @@ with qw(
     Regru::API::Role::Loggable
 );
 
-has username    => ( is => 'ro', required => 1 );
-has password    => ( is => 'ro', required => 1 );
-has io_encoding => ( is => 'ro' );
-has lang        => ( is => 'ro' );
-has debug       => ( is => 'ro' );
+has username => (
+    is          => 'rw',
+    required    => 1,
+    predicate   => 'has_username',
+);
+has password => (
+    is          => 'rw',
+    required    => 1,
+    predicate   => 'has_password',
+);
+has io_encoding => (
+    is          => 'rw',
+    isa         => sub {
+        my %valid = map { ($_ => 1) } qw(utf8 cp1251 cp866 koi8-r koi8-u);
+        croak "Empty encoding value"            unless $_[0];
+        croak "Unsupported encoding: $_[0]"     unless exists $valid{$_[0]};
+    },
+    predicate   => 'has_io_encoding',
+);
+has lang => (
+    is          => 'rw',
+    isa         => sub {
+        my %valid = map { ($_ => 1) } qw(en ru th);
+        croak "Empty language value"            unless $_[0];
+        croak "Unsupported language: $_[0]"     unless exists $valid{$_[0]};
+    },
+    predicate   => 'has_lang',
+);
+has debug => (
+    is        => 'rw',
+    predicate => 'has_debug',
+);
 
 has namespace   => (
     is      => 'ro',
@@ -59,11 +87,15 @@ sub api_request {
                          $self->to_namespace(delete $params{namespace}), # compose namespace part
                         ($method ? '/' . $method : '');
 
+    # protect I/O formats against modifying
+    delete $params{output_format};
+    delete $params{input_format};
+
     my %post_params = (
         username      => $self->username,
         password      => $self->password,
         output_format => 'json',
-        input_format  => 'json'
+        input_format  => 'json',
     );
 
     $post_params{lang}          = $self->lang           if defined $self->lang;
@@ -78,7 +110,7 @@ sub api_request {
         [ %post_params, input_data => $json ]
     );
 
-    return Regru::API::Response->new( response => $response );
+    return Regru::API::Response->new( response => $response, debug => $self->debug );
 }
 
 sub to_namespace {
@@ -99,11 +131,11 @@ __END__
 
 =head1 NAME
 
-Regru::API::Role::Client - REG.API v2 "client" role
+Regru::API::Role::Client - something that makes requests to API
 
 =head1 VERSION
 
-version 0.003
+version 0.004
 
 =head1 SYNOPSIS
 
@@ -133,26 +165,28 @@ Any class or role that consumes this role will able to execute requests to REG.A
 
 =head2 username
 
-Account name of the user to access to website L<https://www.reg.com>. Required.
+Account name of the user to access to L<reg.com|https://www.reg.com> website. Required. Should be passed at instance
+create time. Although it might be changed at runtime.
 
 =head2 password
 
-Account password of the user to access to website L<https://www.reg.com> or an alternative password for API
-defined at L<Reseller settings|https://www.reg.com/reseller/details> page. Required.
+Account password of the user to access to L<reg.com|https://www.reg.com> website or an alternative password for API
+defined at L<Reseller settings|https://www.reg.com/reseller/details> page. Required. Should be passed at instance create time.
+Although it might be changed at runtime.
 
 =head2 io_encoding
 
 Defines encoding that will be used for data exchange between the Service and the Client. At the moment REG.API v2
-supports the following encodings: I<utf8>, I<cp1251>, I<koi8-r>, I<koi8-u>, I<cp866>. Optional. Default value is B<utf8>.
+supports the following encodings: C<utf8>, C<cp1251>, C<koi8-r>, C<koi8-u>, C<cp866>. Optional. Default value is B<utf8>.
 
 =head2 lang
 
 Defines the language which will be used in error messages. At the moment REG.API v2 supports the following languages:
-English (I<en>), Russian (I<ru>) and Thai (I<th>). Optional. Default value is B<en>.
+C<en> (English), C<ru> (Russian) and C<th> (Thai). Optional. Default value is B<en>.
 
 =head2 debug
 
-Enables the debug mode. Prints some garbage.
+A few messages will be printed to STDERR. Default value is B<0> (suppressed debug activity).
 
 =head2 namespace
 

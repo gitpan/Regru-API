@@ -7,7 +7,7 @@ use warnings;
 use Moo;
 use namespace::autoclean;
 
-our $VERSION = '0.003'; # VERSION
+our $VERSION = '0.004'; # VERSION
 our $AUTHORITY = 'cpan:IMAGO'; # AUTHORITY
 
 with 'Regru::API::Role::Client';
@@ -45,7 +45,7 @@ Regru::API::Folder - REG.API v2 "folder" category
 
 =head1 VERSION
 
-version 0.003
+version 0.004
 
 =head1 DESCRIPTION
 
@@ -57,7 +57,7 @@ REG.API folder category... (to be described)
 
 ...
 
-=head1 METHODS
+=head1 REG.API METHODS
 
 =head2 nop
 

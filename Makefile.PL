@@ -40,12 +40,14 @@ my %WriteMakefileArgs = (
     "HTTP::Response" => "6.04",
     "IO::Handle" => 0,
     "IPC::Open3" => 0,
+    "Net::Ping" => "2.38",
     "Test::Fatal" => "0.010",
     "Test::More" => "0.98",
     "Test::Pod" => "1.22",
-    "Test::Warnings" => "0.010"
+    "Test::Warnings" => "0.010",
+    "URI" => "1.60"
   },
-  "VERSION" => "0.003",
+  "VERSION" => "0.004",
   "test" => {
     "TESTS" => "t/*.t"
   }

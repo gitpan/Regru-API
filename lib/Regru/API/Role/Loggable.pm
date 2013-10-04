@@ -1,6 +1,6 @@
 package Regru::API::Role::Loggable;
 
-# ABSTRACT: REG.API v2 "loggable" role
+# ABSTRACT: something that produces a debug messages
 
 use strict;
 use warnings;
@@ -9,7 +9,7 @@ use namespace::autoclean;
 use Data::Dumper;
 use Carp;
 
-our $VERSION = '0.003'; # VERSION
+our $VERSION = '0.004'; # VERSION
 our $AUTHORITY = 'cpan:IMAGO'; # AUTHORITY
 
 sub debug_warn {
@@ -36,11 +36,11 @@ __END__
 
 =head1 NAME
 
-Regru::API::Role::Loggable - REG.API v2 "loggable" role
+Regru::API::Role::Loggable - something that produces a debug messages
 
 =head1 VERSION
 
-version 0.003
+version 0.004
 
 =head1 SYNOPSIS
 

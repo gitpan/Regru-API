@@ -1,11 +1,10 @@
 use strict;
 use warnings;
 use Test::More tests => 3;
-use Regru::API;
+use t::lib::NamespaceClient;
+use t::lib::Connection;
 
-sub namespace_client {
-    Regru::API->new(username => 'test', password => 'test')->service;
-};
+my $api_avail;
 
 subtest 'Generic behaviour' => sub {
     plan tests => 2;
@@ -34,18 +33,25 @@ subtest 'Generic behaviour' => sub {
         resend_mail
     );
 
-    my $client = namespace_client();
+    my $client = t::lib::NamespaceClient->service;
 
     isa_ok $client, 'Regru::API::Service';
     can_ok $client, @methods;
 };
 
 subtest 'Namespace methods (nop)' => sub {
-    plan tests => 1;
-
-    my $client = namespace_client();
-
+    my $client = t::lib::NamespaceClient->service;
     my $resp;
+
+    $api_avail ||= t::lib::Connection->check($client->endpoint);
+
+    unless ($api_avail) {
+        diag 'Some tests were skipped. No connection to API endpoint.';
+        plan skip_all => '.';
+    }
+    else {
+        plan tests => 1;
+    }
 
     # /service/nop
     $resp = $client->nop(dname => 'test.ru');
@@ -54,16 +60,22 @@ subtest 'Namespace methods (nop)' => sub {
 
 subtest 'Namespace methods (overall)' => sub {
     unless ($ENV{REGRU_API_OVERALL_TESTING}) {
-        diag 'Skipped. Set REGRU_API_OVERALL_TESTING=1 to proceed this subtest.';
+        diag 'Some tests were skipped. Set the REGRU_API_OVERALL_TESTING to execute them.';
+        plan skip_all => '.';
+    }
+
+    my $client = t::lib::NamespaceClient->service;
+    my $resp;
+
+    $api_avail ||= t::lib::Connection->check($client->endpoint);
+
+    unless ($api_avail) {
+        diag 'Some tests were skipped. No connection to API endpoint.';
         plan skip_all => '.';
     }
     else {
         plan tests => 19;
     }
-
-    my $client = namespace_client();
-
-    my $resp;
 
     # /service/get_prices
     $resp = $client->get_prices;

@@ -1,6 +1,6 @@
 package Regru::API::Role::Serializer;
 
-# ABSTRACT: REG.API v2 "serializer" role
+# ABSTRACT: something that can (de)serialize
 
 use strict;
 use warnings;
@@ -9,7 +9,7 @@ use JSON;
 use Carp;
 use namespace::autoclean;
 
-our $VERSION = '0.003'; # VERSION
+our $VERSION = '0.004'; # VERSION
 our $AUTHORITY = 'cpan:IMAGO'; # AUTHORITY
 
 has serializer => (
@@ -29,11 +29,11 @@ __END__
 
 =head1 NAME
 
-Regru::API::Role::Serializer - REG.API v2 "serializer" role
+Regru::API::Role::Serializer - something that can (de)serialize
 
 =head1 VERSION
 
-version 0.003
+version 0.004
 
 =head1 SYNOPSIS
 

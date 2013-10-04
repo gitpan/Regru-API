@@ -2,181 +2,374 @@ NAME
     Regru::API - Perl bindings for Reg.ru API v2
 
 VERSION
-    version 0.003
+    version 0.004
 
 SYNOPSIS
-        my $client = Regru::API->new(username => 'test', password => 'test');
-        my $response = $client->nop; # makes call for <https://www.reg.com/support/help/API-version2#nop>
+        my $client = Regru::API->new(
+            username => 'test',
+            password => 'test',
+        );
 
-        if ($response->is_success) {
-            say $response->get('user_id');
+        # trivial API request
+        my $resp = $client->nop;
+
+        if ($resp->is_success) {
+            print $response->get('user_id');
         }
         else {
-            die "Error code: " . $response->error_code . ", Error text: " . $response->error_text;
+            print "Error code: " . $resp->error_code . ", Error text: " . $resp->error_text;
         }
 
 DESCRIPTION
-    API calls are divided into categories - user, domain, zone, user,
-    folder, bill, service. Each category is stored in it's own namespace,
-    and can be accessed through "$client->$namespace method". For example,
+    Regru::API implements simplified access to the REG.API v2 provided by
+    REG.RU LLC. This is a JSON-driven implementation. Input/output request
+    data will transforms from/to JSON transparently.
 
-        $client->user->nop
+  Categories (namespaces)
+    REG.API methods are divided into categories (namespaces). When you wish
+    to make an API request to some REG.API method, that belongs to some
+    namespace (category) you should get a namespace handler (defined as
+    trivial client's method):
 
-    makes call to user/nop API method
-    <https://www.reg.com/support/help/API-version2#user_nop>
+        # suppose we already have a client
+        $client->user->nop;
 
-    Complete Reg.ru API 2 Documentation can be found here:
-    <https://www.reg.com/support/help/API-version2>.
+        # or like this
+        $zone = $client->zone;
+        $zone->register_ns(...);
 
-    All API methods return Regru::API::Response object.
+    At the moment there are the following namespaces:
 
-        my $response = $client->domain->get_premium;
+    root
+        General purpose methods such as "nop", "reseller_nop" etc which are
+        described below. Actually is a virtual namespace defined by client.
+        No needs to get namespace handler. The methods of this "namespace"
+        are available as client's methods directly.
 
-        if ($response->is_success) {
-            # answer params can be get with C<$response->get($param_name)> method
-            my $domains = $response->get('domain');
-            for my $domain_info (@$domains) {
-                say "Name: " . $domain_info->{ name } . ", price: " . $domain_info->{ price };
-            }
-        }
-        else {
-            ...
-        }
+            $client->nop;
+            $client->reseller_nop;
 
-    All params for API call is passed to API method call as a hash;
+        See "REG.API METHODS".
 
-        my $refill_balance_response = $client->user->refill_balance(
-            pay_type => 'WM',
-            wmid     => '123456789012',
-            currency => 'RUR',
-            amount   => 100
-        );
+    user
+        User account management methods.
 
-        my $jsondata = {
-            contacts => {
-                descr    => 'Vschizh site',
-                person   => 'Svyatoslav V Ryurik',
-                person_r => 'Рюрик Святослав Владимирович',
-                passport =>
-                    '22 44 668800 выдан по месту правления 01.09.1164',
-                birth_date => '01.01.1970',
-                p_addr =>
-                    '12345, г. Вщиж, ул. Княжеска, д.1, Рюрику Святославу Владимировичу, князю Вщижскому',
-                phone   => '+7 495 5555555',
-                e_mail  => 'test@reg.ru',
-                country => 'RU',
-            },
-            nss => {
-                ns0 => 'ns1.reg.ru',
-                ns1 => 'ns2.reg.ru',
-            },
-            domain_name => 'vschizh.su',
-        };
+            # suppose we already have a client
+            $client->user->nop;
 
-        my $domain_create_answer = $client->domain->create(%$jsondata);
+        See Regru::API::User for details and REG.API Account management
+        functions <https://www.reg.com/support/help/API-version2#user_fn>.
 
-        if ($domain_create_answer->is_success) {
-            say "Domain create request succeeded";
-        }
-        else {
-            die $domain_create_answer->error_text;
-        }
+    domain
+        Domain names management methods.
 
-    NB: All input params for call are passed in JSON format.
+            # suppose we already have a client
+            $client->domain->get_nss(
+                domain_name => 'gallifrey.ru',
+            );
 
-    To get service answer, use "$response->get($param_name)" method.
-    $param_name is the answer field.
+        See Regru::API::Domain for details and REG.API Domain management
+        functions <https://www.reg.com/support/help/API-version2#domain_fn>.
+
+    zone
+        DNS resource records management methods.
+
+            # suppose we already have a client
+            $client->zone->clear(
+                domain_name => 'pyrovilia.net',
+            );
+
+        See Regru::API::Zone for details and REG.API DNS management
+        functions <https://www.reg.com/support/help/API-version2#zone_fn>.
+
+    service
+        Service management methods.
+
+            # suppose we already have a client
+            $client->service->delete(
+                domain_name => 'sontar.com',
+                servtype    => 'srv_hosting_plesk',
+            );
+
+        See Regru::API::Service for details and REG.API Service management
+        functions
+        <https://www.reg.com/support/help/API-version2#service_fn>.
+
+    folder
+        User folders management methods.
+
+            # suppose we already have a client
+            $client->folder->create(
+                folder_name => 'UNIT',
+            );
+
+        See Regru::API::Folder for details and REG.API Folder management
+        functions <https://www.reg.com/support/help/API-version2#folder_fn>.
+
+    bill
+        Invoice management methods.
+
+            # suppose we already have a client
+            $client->bill->get_not_payed(
+                limit => 10,
+            );
+
+        See Regru::API::Bill for details and REG.API Invoice management
+        functions <https://www.reg.com/support/help/API-version2#bill_fn>.
+
+  Methods accessibility
+    All REG.API methods can be divided into categories of accessibility. On
+    manual pages of this distibution accessibility marked by "scope" tag. At
+    the moment the following categories of accessibility present:
+
+    everyone
+        All methods tagged by this one are accessible to all users. Those
+        methods does not require authentication before call.
+
+    clients
+        This tag indicates the methods which accessible only for users
+        registered on reg.com <https://www.reg.com> website. Strongly
+        required an authenticated API request.
+
+    partners
+        Group of methods which accessible only for partners (resellers) of
+        the REG.RU LLC. Actually, partners (resellers) able to execute all
+        methods of the REG.API without any restrictions.
+
+  Request parameters
+    Each API request should contains a set of parameters. There are the
+    following parameters:
+
+    authentication parameters
+        These parameters are mandatory for the each method that requires
+        authentication. This group of parameters includes "username" and
+        "password". Both parameters should be passed to the constructor and
+        their will be added to API request.
+
+    management parameters
+        This group include parameters defines input/output formats,
+        encodings and language prefecence. Some parameters are fixed to
+        certains values, some might be set via passing values to the
+        constructor: see "io_encoding" and "lang" options.
+
+    service identification parameters
+        The group of parameters with aims to point to the particular service
+        or group of services such as domain names, folders, etc. Should be
+        passed to an API request together with "method specific parameters".
+
+        More info at REG.API Service identification parameters
+        <https://www.reg.com/support/help/API-version2#inputparams_identific
+        ation>
+
+    method specific parameters
+        Parameters applicable to a particular API method. Very wide group.
+        Strongly recommended to consult with REG.API documentation for each
+        method before perform an API request to it. The distribution's
+        manual pages includes links to documentation for each API method
+        call. The main source for the method specific parameters available
+        at REG.API General description of functions
+        <https://www.reg.com/support/help/API-version2#common_fn_descr>.
+
+  Response parameters
+    Response parameters of the API request automatically handles by
+    Regru::API::Response module. There is no reasons to do some addtional
+    work on them. Each response may contains the following set of fileds:
+
+    result
+        The result of API request. Either "success" or "error". Can be
+        accessed via attribute is_success in boolean context.
+
+    answer
+        The answer of API method call. May appear only when result of API
+        request was successful. Can be accessed via attribute answer.
+        Default value is "{}" (empty HashRef). Gets assigned a default value
+        if result of API request was finished with error.
+
+    error_code
+        The error code of API method call. May appear only when result of
+        API request finished with error. Can be accessed via attribute
+        error_code. See details at REG.API Common error codes
+        <https://www.reg.com/support/help/API-version2#std_error_codes>.
+
+    error_text
+        The short description of error. The language depends on option lang
+        "new" passed to constructor. May appear only when result of API
+        request finished with error. Can be accessed via attribute
+        error_text. See details at REG.API Common error codes
+        <https://www.reg.com/support/help/API-version2#std_error_codes>.
+
+    error_params
+        Additional parameters included to the error. May appear only when
+        result of API request finished with error. Can be accessed via
+        attribute error_params.
+
+  Access to REG.API in test mode
+    REG.RU LLC provides an access to REG.API in test mode. For this, might
+    be used a test account with "username" and "password" equals to test.
+
+        my $client = Regru::API->new(username => 'test', password => 'test');
+        # we're in test mode now
+        $client->domain->get_prices;
+
+    In the test mode REG.API engine (at server-side) handles API request:
+    ensures necessary checks of input parameters, produces response but
+    actually does not perform any real actions/changes.
+
+    Also, for debugging purposes REG.API provides a special set of methods
+    allows to ensure the remote system for availability without workload at
+    minimal response time. Each namespace has method called nop for that.
 
 METHODS
   new
-        my $client = Regru::API->new(username => 'test', password => 'test');
-        my $response = $client->nop;
-        # another cool code here...
+    Creates a client instance to interract with REG.API.
 
-        # and without authentication:
-        my $client = Regru::API->new;
+        my $client = Regru::API->new(
+            username => 'Rassilon',
+            password => 'You die with me, Doctor!'
+        );
 
-        my $response = $client->user->nop; # user/nop doesn't require authentication
-        say 'ok' if $response->is_success;
+        my $resp = $client->user->get_balance;
 
-    Another options for new():
+        print $resp->get('prepay') if $resp->is_success;
 
-    lang
-        Sets language for error messages.
+        # another cool code...
 
-            my $client = Regru::API->new(username => 'test1', password => 'test', lang => 'ru');
-            print $client->nop->error_text; # will print "Ошибка аутентификации по паролю"
+    Available options:
+
+    username
+        Account name of the user to access to reg.com <https://www.reg.com>
+        website. Required. Should be passed at instance create time.
+        Although it might be changed at runtime.
+
+            my $client = Regru::API->new(username => 'Cyberman', password => 'Exterminate!');
+            ...
+            # at runtime
+            $client->username('Dalek');
+
+    password
+        Account password of the user to access to reg.com
+        <https://www.reg.com> website or an alternative password for API
+        defined at Reseller settings <https://www.reg.com/reseller/details>
+        page. Required. Should be passed at instance create time. Although
+        it might be changed at runtime.
+
+            my $client = Regru::API->new(username => 'Master', password => 'Doctor');
+            ...
+            # at runtime
+            $client->password('The-Master.');
 
     io_encoding
-        Sets encoding for input and output data.
+        Defines encoding that will be used for data exchange between the
+        Service and the Client. At the moment REG.API v2 supports the
+        following encodings: "utf8", "cp1251", "koi8-r", "koi8-u", "cp866".
+        Optional. Default value is utf8.
 
-            my $client = Regru::API->new(
-                username    => 'test',
-                password    => 'test',
-                io_encoding => 'cp1251'
-            );
-            my $response = $client->user->create(
+            my $client = Regru::API->new(..., io_encoding => 'cp1251');
+            ...
+            # or at runtime
+            $client->io_encoding('cp1251');
+
+            my $resp = $client->user->create(
                 user_login      => 'othertest',
                 user_password   => '111',
                 user_email      => 'test@test.ru',
                 user_first_name => $cp1251_encoded_name
             );
 
-    debug
-        Debug messages will be printed to STDERR.
+    lang
+        Defines the language which will be used in error messages. At the
+        moment REG.API v2 supports the following languages: "en" (English),
+        "ru" (Russian) and "th" (Thai). Optional. Default value is en.
 
-            my $client = Regru::API->new(debug => 1);
+            my $client = Regru::API->new(..., lang => 'ru');
+            ...
+            # or at runtime
+            $client->lang('ru');
+
+            $client->username('bogus-user');
+            print $client->nop->error_text; # -> "Ошибка аутентификации по паролю"
+
+    debug
+        A few messages will be printed to STDERR. Default value is 0
+        (suppressed debug activity).
+
+            my $client = Regru::API->new(..., debug => 1);
+            ...
+            # or at runtime
+            $client->debug(1);
+
+  user
+    Returns a handler to access to REG.API user account management methods.
+    See Regru::API::User.
+
+  domain
+    Returns a handler to access to REG.API domain name management methods.
+    See Regru::API::Domain.
+
+  zone
+    Returns a handler to access to REG.API DNS resource records management
+    methods. See Regru::API::Zone.
+
+  service
+    Returns a handler to access to REG.API service management methods. See
+    Regru::API::Service.
+
+  folder
+    Returns a handler to access to REG.API folder management methods. See
+    Regru::API::Folder.
+
+  bill
+    Returns a handler to access to REG.API invoice management methods. See
+    Regru::API::Bill.
 
   namespace_handlers
-    ...
+    Creates shortcuts to REG.API categories (namespaces). Used internally.
 
+REG.API METHODS
   nop
-    ...
+    For testing purposes. Scope: everyone. Typical usage:
+
+        $resp = $client->nop;
+
+    Answer will contains an user_id and login fields.
+
+    More info at Common functions: nop
+    <https://www.reg.com/support/help/API-version2#nop>.
 
   reseller_nop
-    ...
+    Similar to previous one but only for partners. Scope: partners. Typical
+    usage:
+
+        $resp = $client->reseller_nop;
+
+    Answer will contains an user_id and login fields.
+
+    More info at Common functions: nop
+    <https://www.reg.com/support/help/API-version2#reseller_nop>.
 
   get_user_id
-    ...
+    Get the identifier of the current user. Scope: clients. Typical usage:
+
+        $resp = $client->get_user_id;
+
+    Answer will contains an user_id field.
+
+    More info at Common functions: nop
+    <https://www.reg.com/support/help/API-version2#get_user_id>.
 
   get_service_id
-    ...
+    Get service or domain name identifier by its name. Scope: clients.
+    Typical usage:
 
-Error processing
-    If API returned exception or some bad error, such as 500 internal server
-    error has happened, $response will store error information and raw
-    HTTP::Response object with service answer.
+        $resp = $client->get_service_id(
+            domain_name => 'teselecta.ru',
+        );
 
-  is_success
-    Returns 1 if API call is succeeded, 0 otherwise.
+    Answer will contains a service_id field or error code if requested
+    domain name/service not found.
 
-  error_text
-    Returns error text if an error occured, default language for error
-    messages is english. Language can be set in Regru::API constructor with
-    "lang" option.
-
-  error_code
-    Returns error code if an error occured. Full list error codes list is
-    available at
-    <https://www.reg.com/support/help/API-version2#std_error_codes>. Error
-    code API_FAIL means incorrect answer from API, such as 500 internal
-    server error.
-
-  error_params
-    Params for error text.
-
-  response
-    Returns raw HTTP::Response object for further processing.
-
-    Sample:
-
-        my $response = $client->api->nop;
-        if ($response->is_success) {
-            # do some stuff
-        }
-        else {
-            print "Error: " . $response->error_code . ", " . $response->error_text;
-        }
+    More info at Common functions: nop
+    <https://www.reg.com/support/help/API-version2#get_service_id>.
 
 SEE ALSO
     Regru::API::Bill
@@ -192,6 +385,12 @@ SEE ALSO
     Regru::API::Zone
 
     Regru::API::Response
+
+    REG.API Common functions
+    <https://www.reg.com/support/help/API-version2#tests_fn>
+
+    REG.API Common error codes
+    <https://www.reg.com/support/help/API-version2#std_error_codes>
 
 BUGS
     Please report any bugs or feature requests on the bugtracker website

@@ -7,7 +7,7 @@ use warnings;
 use Moo;
 use namespace::autoclean;
 
-our $VERSION = '0.003'; # VERSION
+our $VERSION = '0.004'; # VERSION
 our $AUTHORITY = 'cpan:IMAGO'; # AUTHORITY
 
 with 'Regru::API::Role::Client';
@@ -41,7 +41,7 @@ Regru::API::Bill - REG.API v2 "bill" category
 
 =head1 VERSION
 
-version 0.003
+version 0.004
 
 =head1 DESCRIPTION
 
@@ -53,7 +53,7 @@ REG.API invoices management section.
 
 Always returns the name of category: C<bill>. For internal usage only.
 
-=head1 METHODS
+=head1 REG.API METHODS
 
 =head2 nop
 

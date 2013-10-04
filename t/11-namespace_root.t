@@ -1,6 +1,10 @@
 use strict;
 use warnings;
 use Test::More tests => 3;
+use t::lib::NamespaceClient;
+use t::lib::Connection;
+
+my $api_avail;
 
 subtest 'Generic behaviour' => sub {
     plan tests => 5;
@@ -18,10 +22,18 @@ subtest 'Generic behaviour' => sub {
 };
 
 subtest 'Namespace methods' => sub {
-    plan tests => 9;
-
-    my $client = Regru::API->new( username => 'test', password => 'test' );
+    my $client = t::lib::NamespaceClient->root;
     my $resp;
+
+    $api_avail ||= t::lib::Connection->check($client->endpoint);
+
+    unless ($api_avail) {
+        diag 'Some tests were skipped. No connection to API endpoint.';
+        plan skip_all => '.';
+    }
+    else {
+        plan tests => 9;
+    }
 
     # /nop
     $resp = $client->nop;
@@ -46,12 +58,21 @@ subtest 'Namespace methods' => sub {
 };
 
 subtest 'Invalid credentials' => sub {
-    plan tests => 2;
+    my $client = t::lib::NamespaceClient->root;
 
-    my $client = Regru::API->new(
-        username => 'wrong login',
-        password => 'wrong password'
-    );
+    $api_avail ||= t::lib::Connection->check($client->endpoint);
+
+    unless ($api_avail) {
+        diag 'Some tests were skipped. No connection to API endpoint.';
+        plan skip_all => '.';
+    }
+    else {
+        plan tests => 2;
+    }
+
+    # overwrite std test/test credentials
+    $client->username('wrong login');
+    $client->password('wrong password');
 
     my $resp = $client->nop;
 

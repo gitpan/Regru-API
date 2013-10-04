@@ -1,6 +1,6 @@
 package Regru::API::Role::UserAgent;
 
-# ABSTRACT: REG.API v2 "user agent" role
+# ABSTRACT: something that can act as user-agent
 
 use strict;
 use warnings;
@@ -9,7 +9,7 @@ use LWP::UserAgent;
 use Carp;
 use namespace::autoclean;
 
-our $VERSION = '0.003'; # VERSION
+our $VERSION = '0.004'; # VERSION
 our $AUTHORITY = 'cpan:IMAGO'; # AUTHORITY
 
 has useragent => (
@@ -29,11 +29,11 @@ __END__
 
 =head1 NAME
 
-Regru::API::Role::UserAgent - REG.API v2 "user agent" role
+Regru::API::Role::UserAgent - something that can act as user-agent
 
 =head1 VERSION
 
-version 0.003
+version 0.004
 
 =head1 SYNOPSIS
 

@@ -1,13 +1,13 @@
 package Regru::API::Role::Namespace;
 
-# ABSTRACT: REG.API v2 "namespace" role
+# ABSTRACT: something that can treat as a namespace
 
 use strict;
 use warnings;
 use Moo::Role;
 use namespace::autoclean;
 
-our $VERSION = '0.003'; # VERSION
+our $VERSION = '0.004'; # VERSION
 our $AUTHORITY = 'cpan:IMAGO'; # AUTHORITY
 
 requires 'available_methods';
@@ -22,11 +22,11 @@ __END__
 
 =head1 NAME
 
-Regru::API::Role::Namespace - REG.API v2 "namespace" role
+Regru::API::Role::Namespace - something that can treat as a namespace
 
 =head1 VERSION
 
-version 0.003
+version 0.004
 
 =head1 SYNOPSIS
 

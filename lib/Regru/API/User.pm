@@ -7,7 +7,7 @@ use warnings;
 use Moo;
 use namespace::autoclean;
 
-our $VERSION = '0.003'; # VERSION
+our $VERSION = '0.004'; # VERSION
 our $AUTHORITY = 'cpan:IMAGO'; # AUTHORITY
 
 with 'Regru::API::Role::Client';
@@ -41,7 +41,7 @@ Regru::API::User - REG.API v2 "user" category
 
 =head1 VERSION
 
-version 0.003
+version 0.004
 
 =head1 DESCRIPTION
 
@@ -53,13 +53,11 @@ REG.API user category... (to be described)
 
 ...
 
-=head1 METHODS
+=head1 REG.API METHODS
 
 =head2 nop
 
-Does nothing.
-
-    my $response = $client->user->nop;
+...
 
 =head2 create
 
@@ -67,42 +65,11 @@ Does nothing.
 
 =head2 get_statistics
 
-Returns statistics for current user.
-
-Options:
-
-=over
-
-=item date_from
-
-    start date for period, unnecessary
-
-=item date_to
-
-    end date for period, unnecessary
-
-=back
-
-    my $response = $client->user->get_statistics;
-    say $response->get("costs_for_period") if $response->is_success;
+...
 
 =head2 get_balance
 
-Returns balance for current user.
-
-    my $currency = 'UAH';
-    my $response = $client->user->get_balance(currency => $currency);
-    say "Balance: " . $response->get("prepay") . " ". $currency if $response->is_success;
-
-Options:
-
-=over
-
-=item currency
-
-    currency for output sum, RUR by default.
-
-=back
+...
 
 =head2 refill_balance
 
