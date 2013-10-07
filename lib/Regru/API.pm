@@ -9,7 +9,7 @@ use Carp ();
 use Class::Load qw(try_load_class);
 use namespace::autoclean;
 
-our $VERSION = '0.004'; # VERSION
+our $VERSION = '0.041'; # VERSION
 our $AUTHORITY = 'cpan:IMAGO'; # AUTHORITY
 
 with 'Regru::API::Role::Client';
@@ -91,7 +91,7 @@ Regru::API - Perl bindings for Reg.ru API v2
 
 =head1 VERSION
 
-version 0.004
+version 0.041
 
 =head1 SYNOPSIS
 
@@ -114,6 +114,30 @@ version 0.004
 
 Regru::API implements simplified access to the REG.API v2 provided by REG.RU LLC. This is a JSON-driven implementation.
 Input/output request data will transforms from/to JSON transparently.
+
+=head2 Rate limiting
+
+Rate limiting in version 2 of the REG.API is considered on a per-user and per-ip basic. The REG.API methods have not
+divided into groups by limit level. There is no difference between them. At the moment REG.API v2 allows to execute
+C<1200> requests per-user and per-ip within C<1 hour> window. Both limits are acting at the same time.
+If the limits has exceeded then REG.API sets the error code (depends on kind of) to C<IP_EXCEEDED_ALLOWED_CONNECTION_RATE> or
+C<ACCOUNT_EXCEEDED_ALLOWED_CONNECTION_RATE> which might be checked via attribute L<error_code|Regru::API::Response/error_code>.
+
+The following tips are there might helps to reduce the possibility of being rate limited:
+
+=over
+
+=item Store all domain name or service related data locally and use the REG.API in cases you want to change some data in
+the registry (e.g. contact data, DNS servers, etc).
+
+=item Group similar items and execute a bulk API request. A bunch of methods supports sending request for the list of items at
+the same time (e.g. multiple domain names). Check the details at
+L<REG.API Service list identification parameters|https://www.reg.com/support/help/API-version2#inputparams_identification_multi>.
+
+=item Keep the logs of interactions with REG.API (requests and responses). This will helps quickly resolve the issues
+instead of sending additional requests to find out what's happened.
+
+=back
 
 =head2 Categories (namespaces)
 

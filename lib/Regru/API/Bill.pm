@@ -7,7 +7,7 @@ use warnings;
 use Moo;
 use namespace::autoclean;
 
-our $VERSION = '0.004'; # VERSION
+our $VERSION = '0.041'; # VERSION
 our $AUTHORITY = 'cpan:IMAGO'; # AUTHORITY
 
 with 'Regru::API::Role::Client';
@@ -41,7 +41,7 @@ Regru::API::Bill - REG.API v2 "bill" category
 
 =head1 VERSION
 
-version 0.004
+version 0.041
 
 =head1 DESCRIPTION
 
@@ -51,21 +51,21 @@ REG.API invoices management section.
 
 =head2 namespace
 
-Always returns the name of category: C<bill>. For internal usage only.
+Always returns the name of category: C<bill>. For internal uses only.
 
 =head1 REG.API METHODS
 
 =head2 nop
 
-For testing purposes. Scope: B<clients>. Typical usage:
+For testing purposes. Scope: B<everyone>. Typical usage:
 
     $resp = $client->bill->nop(
-        bill_id => 12345
+        bill_id => 12345,
     );
 
     # or
     $resp = $client->bill->nop(
-        bills => [ 12345, 12346 ]
+        bills => [ 12345, 12346 ],
     );
 
 Returns payment status for requested invoice or error code (in some cases).
@@ -77,7 +77,7 @@ More info at L<Invoice management: nop|https://www.reg.com/support/help/API-vers
 Obtains a list of unpaid invoices. Scope: B<clients>. Typical usage:
 
     $resp = $client->bill->get_not_payed(
-        limit => 10, offset => 40
+        limit => 10, offset => 40,
     );
 
 Returns a list of unpaind invoices if any.
@@ -117,7 +117,7 @@ More info at L<Invoice management: change_pay_type|https://www.reg.com/support/h
 Allows to delete unpaid invoices. Scope: B<clients>. Typical usage:
 
     $resp = $client->bill->delete(
-        bills => [ 12345, 12346, 12347 ]
+        bills => [ 12345, 12346, 12347 ],
     );
 
 Returns a list of invoices which requested to delete and its status.

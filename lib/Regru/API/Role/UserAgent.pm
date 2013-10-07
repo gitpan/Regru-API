@@ -9,7 +9,7 @@ use LWP::UserAgent;
 use Carp;
 use namespace::autoclean;
 
-our $VERSION = '0.004'; # VERSION
+our $VERSION = '0.041'; # VERSION
 our $AUTHORITY = 'cpan:IMAGO'; # AUTHORITY
 
 has useragent => (
@@ -33,7 +33,7 @@ Regru::API::Role::UserAgent - something that can act as user-agent
 
 =head1 VERSION
 
-version 0.004
+version 0.041
 
 =head1 SYNOPSIS
 

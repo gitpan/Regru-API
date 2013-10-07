@@ -1,5 +1,14 @@
 Revision history for Perl distribution Regru-API.
 
+0.041   Mon Oct 7 08:23:59 2013 +0000
+
+    [ DOCUMENTATION ]
+    - added remarks about API rate limiting
+    - added documentation related to folder and account management methods
+
+    [ TESTS ]
+    - skip some tests if an API rate limit has exceeded
+
 0.004   Fri Oct 4 07:50:45 2013 +0000
 
     [ DOCUMENTATION ]
