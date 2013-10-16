@@ -9,7 +9,7 @@ use Carp ();
 use Class::Load qw(try_load_class);
 use namespace::autoclean;
 
-our $VERSION = '0.041'; # VERSION
+our $VERSION = '0.042'; # VERSION
 our $AUTHORITY = 'cpan:IMAGO'; # AUTHORITY
 
 with 'Regru::API::Role::Client';
@@ -91,7 +91,7 @@ Regru::API - Perl bindings for Reg.ru API v2
 
 =head1 VERSION
 
-version 0.041
+version 0.042
 
 =head1 SYNOPSIS
 
@@ -127,14 +127,20 @@ The following tips are there might helps to reduce the possibility of being rate
 
 =over
 
-=item Store all domain name or service related data locally and use the REG.API in cases you want to change some data in
+=item B<Caching>
+
+Store all domain name or service related data locally and use the REG.API in cases you want to change some data in
 the registry (e.g. contact data, DNS servers, etc).
 
-=item Group similar items and execute a bulk API request. A bunch of methods supports sending request for the list of items at
+=item B<Bulk requests>
+
+Group similar items and execute a bulk API request. A bunch of methods supports sending request for the list of items at
 the same time (e.g. multiple domain names). Check the details at
 L<REG.API Service list identification parameters|https://www.reg.com/support/help/API-version2#inputparams_identification_multi>.
 
-=item Keep the logs of interactions with REG.API (requests and responses). This will helps quickly resolve the issues
+=item B<Journaling>
+
+Keep the logs of interactions with REG.API (requests and responses). This will helps quickly resolve the issues
 instead of sending additional requests to find out what's happened.
 
 =back

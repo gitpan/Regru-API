@@ -17,7 +17,6 @@ subtest 'Generic behaviour' => sub {
         get_list
         get_folders
         get_details
-        service_get_details
         get_dedicated_server_list
         update
         renew
@@ -26,7 +25,8 @@ subtest 'Generic behaviour' => sub {
         suspend
         resume
         get_depreciated_period
-        upgrade partcontrol_grant
+        upgrade
+        partcontrol_grant
         partcontrol_revoke
         resend_mail
     );
@@ -60,7 +60,7 @@ SKIP: {
             plan skip_all => '.';
         }
         else {
-            plan tests => 19;
+            plan tests => 18;
         }
 
         my $resp;
@@ -89,8 +89,8 @@ SKIP: {
         );
         ok $resp->is_success,                                   'delete() success';
 
-        # /service/{get_info,get_list,get_folders,get_details,service_get_details,get_bills}
-        foreach my $method (qw/get_info get_list get_folders get_details service_get_details get_bills/) {
+        # /service/{get_info,get_list,get_folders,get_details,get_bills}
+        foreach my $method (qw/get_info get_list get_folders get_details get_bills/) {
             $resp = $client->$method(dname => 'test.ru');
             ok $resp->is_success, "${method}() success";
         }
@@ -100,7 +100,7 @@ SKIP: {
             dname      => 'test.ru',
             servtype   => 'srv_webfwd',
             fwd_action => 'addfwd',
-            fwdfrom    => '\&',
+            fwdfrom    => '/',
             fwdto      => 'http://reg.ru',
             fwd_type   => 'redirect',
         );

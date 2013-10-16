@@ -9,7 +9,7 @@ use Regru::API::Response;
 use namespace::autoclean;
 use Carp;
 
-our $VERSION = '0.041'; # VERSION
+our $VERSION = '0.042'; # VERSION
 our $AUTHORITY = 'cpan:IMAGO'; # AUTHORITY
 
 with qw(
@@ -98,8 +98,8 @@ sub api_request {
         input_format  => 'json',
     );
 
-    $post_params{lang}          = $self->lang           if defined $self->lang;
-    $post_params{io_encoding}   = $self->io_encoding    if defined $self->io_encoding;
+    $post_params{lang}          = $self->lang           if $self->has_lang;
+    $post_params{io_encoding}   = $self->io_encoding    if $self->has_io_encoding;
 
     $self->debug_warn('API request:', $url, "\n", 'with params:', \%params) if $self->debug;
 
@@ -135,7 +135,7 @@ Regru::API::Role::Client - something that makes requests to API
 
 =head1 VERSION
 
-version 0.041
+version 0.042
 
 =head1 SYNOPSIS
 

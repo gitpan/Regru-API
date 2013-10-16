@@ -1,13 +1,13 @@
 package Regru::API::Bill;
 
-# ABSTRACT: REG.API v2 "bill" category
+# ABSTRACT: REG.API v2 invoice management
 
 use strict;
 use warnings;
 use Moo;
 use namespace::autoclean;
 
-our $VERSION = '0.041'; # VERSION
+our $VERSION = '0.042'; # VERSION
 our $AUTHORITY = 'cpan:IMAGO'; # AUTHORITY
 
 with 'Regru::API::Role::Client';
@@ -37,11 +37,11 @@ __END__
 
 =head1 NAME
 
-Regru::API::Bill - REG.API v2 "bill" category
+Regru::API::Bill - REG.API v2 invoice management
 
 =head1 VERSION
 
-version 0.041
+version 0.042
 
 =head1 DESCRIPTION
 

@@ -2,7 +2,7 @@ NAME
     Regru::API - Perl bindings for Reg.ru API v2
 
 VERSION
-    version 0.041
+    version 0.042
 
 SYNOPSIS
         my $client = Regru::API->new(
@@ -39,18 +39,23 @@ DESCRIPTION
     The following tips are there might helps to reduce the possibility of
     being rate limited:
 
-    Store all domain name or service related data locally and use the
-    REG.API in cases you want to change some data in the registry (e.g.
-    contact data, DNS servers, etc).
-    Group similar items and execute a bulk API request. A bunch of methods
-    supports sending request for the list of items at the same time (e.g.
-    multiple domain names). Check the details at REG.API Service list
-    identification parameters
-    <https://www.reg.com/support/help/API-version2#inputparams_identificatio
-    n_multi>.
-    Keep the logs of interactions with REG.API (requests and responses).
-    This will helps quickly resolve the issues instead of sending additional
-    requests to find out what's happened.
+    Caching
+        Store all domain name or service related data locally and use the
+        REG.API in cases you want to change some data in the registry (e.g.
+        contact data, DNS servers, etc).
+
+    Bulk requests
+        Group similar items and execute a bulk API request. A bunch of
+        methods supports sending request for the list of items at the same
+        time (e.g. multiple domain names). Check the details at REG.API
+        Service list identification parameters
+        <https://www.reg.com/support/help/API-version2#inputparams_identific
+        ation_multi>.
+
+    Journaling
+        Keep the logs of interactions with REG.API (requests and responses).
+        This will helps quickly resolve the issues instead of sending
+        additional requests to find out what's happened.
 
   Categories (namespaces)
     REG.API methods are divided into categories (namespaces). When you wish

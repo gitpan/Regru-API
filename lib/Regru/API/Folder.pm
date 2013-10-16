@@ -1,13 +1,13 @@
 package Regru::API::Folder;
 
-# ABSTRACT: REG.API v2 "folder" category
+# ABSTRACT: REG.API v2 user folders management
 
 use strict;
 use warnings;
 use Moo;
 use namespace::autoclean;
 
-our $VERSION = '0.041'; # VERSION
+our $VERSION = '0.042'; # VERSION
 our $AUTHORITY = 'cpan:IMAGO'; # AUTHORITY
 
 with 'Regru::API::Role::Client';
@@ -41,11 +41,11 @@ __END__
 
 =head1 NAME
 
-Regru::API::Folder - REG.API v2 "folder" category
+Regru::API::Folder - REG.API v2 user folders management
 
 =head1 VERSION
 
-version 0.041
+version 0.042
 
 =head1 DESCRIPTION
 
