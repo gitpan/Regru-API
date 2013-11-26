@@ -9,7 +9,7 @@ use Carp ();
 use Class::Load qw(try_load_class);
 use namespace::autoclean;
 
-our $VERSION = '0.042'; # VERSION
+our $VERSION = '0.043'; # VERSION
 our $AUTHORITY = 'cpan:IMAGO'; # AUTHORITY
 
 with 'Regru::API::Role::Client';
@@ -28,6 +28,7 @@ sub available_namespaces {[qw(
     bill
     folder
     service
+    hosting
 )]}
 
 sub _get_namespace_handler {
@@ -83,7 +84,7 @@ __END__
 
 =pod
 
-=encoding utf-8
+=encoding UTF-8
 
 =head1 NAME
 
@@ -91,7 +92,7 @@ Regru::API - Perl bindings for Reg.ru API v2
 
 =head1 VERSION
 
-version 0.042
+version 0.043
 
 =head1 SYNOPSIS
 

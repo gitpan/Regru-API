@@ -7,7 +7,7 @@ use warnings;
 use Moo;
 use namespace::autoclean;
 
-our $VERSION = '0.042'; # VERSION
+our $VERSION = '0.043'; # VERSION
 our $AUTHORITY = 'cpan:IMAGO'; # AUTHORITY
 
 with 'Regru::API::Role::Client';
@@ -38,6 +38,7 @@ sub available_methods {[qw(
     partcontrol_grant
     partcontrol_revoke
     resend_mail
+    refill
 )]}
 
 __PACKAGE__->namespace_methods;
@@ -49,7 +50,7 @@ __END__
 
 =pod
 
-=encoding utf-8
+=encoding UTF-8
 
 =head1 NAME
 
@@ -57,7 +58,7 @@ Regru::API::Service - REG.API v2 service management
 
 =head1 VERSION
 
-version 0.042
+version 0.043
 
 =head1 DESCRIPTION
 
@@ -434,6 +435,20 @@ Resends an email to user. Applicable only for hosting services and SSL certifica
 Answer will contains a domain name and service identifier or error otherwise.
 
 More info at L<Service management: resend_mail|https://www.reg.com/support/help/API-version2#service_resend_mail>.
+
+=head2 refill
+
+For Jelastic service only. Tranfers specified amount from the user account to the Jelastic account,
+associated with the specified service_id. Scope: B<clients>. Typical usage:
+
+    $resp = $client->service->refill(
+        service_id => 13726302,
+        amount     => 2,
+        currency   => 'USD'
+    );
+
+Answer will contain information about created invoice, such as invoice currency, charged sum, bill number.
+More info at L<Service management: refill|https://www.reg.com/support/help/API-version2#service_refill>.
 
 =head1 SEE ALSO
 

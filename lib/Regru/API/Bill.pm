@@ -7,7 +7,7 @@ use warnings;
 use Moo;
 use namespace::autoclean;
 
-our $VERSION = '0.042'; # VERSION
+our $VERSION = '0.043'; # VERSION
 our $AUTHORITY = 'cpan:IMAGO'; # AUTHORITY
 
 with 'Regru::API::Role::Client';
@@ -33,7 +33,7 @@ __END__
 
 =pod
 
-=encoding utf-8
+=encoding UTF-8
 
 =head1 NAME
 
@@ -41,7 +41,7 @@ Regru::API::Bill - REG.API v2 invoice management
 
 =head1 VERSION
 
-version 0.042
+version 0.043
 
 =head1 DESCRIPTION
 

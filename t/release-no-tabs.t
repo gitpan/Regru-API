@@ -19,6 +19,7 @@ my @files = (
     'lib/Regru/API/Bill.pm',
     'lib/Regru/API/Domain.pm',
     'lib/Regru/API/Folder.pm',
+    'lib/Regru/API/Hosting.pm',
     'lib/Regru/API/Response.pm',
     'lib/Regru/API/Role/Client.pm',
     'lib/Regru/API/Role/Loggable.pm',

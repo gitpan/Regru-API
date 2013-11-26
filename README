@@ -2,7 +2,7 @@ NAME
     Regru::API - Perl bindings for Reg.ru API v2
 
 VERSION
-    version 0.042
+    version 0.043
 
 SYNOPSIS
         my $client = Regru::API->new(
@@ -319,7 +319,7 @@ METHODS
             $client->lang('ru');
 
             $client->username('bogus-user');
-            print $client->nop->error_text; # -> "Ошибка аутентификации по паролю"
+            print $client->nop->error_text; # -> "ÐÑÐ¸Ð±ÐºÐ° Ð°ÑÑÐµÐ½ÑÐ¸ÑÐ¸ÐºÐ°ÑÐ¸Ð¸ Ð¿Ð¾ Ð¿Ð°ÑÐ¾Ð»Ñ"
 
     debug
         A few messages will be printed to STDERR. Default value is 0

@@ -5,10 +5,12 @@ META.json
 META.yml
 Makefile.PL
 README
+README.md
 lib/Regru/API.pm
 lib/Regru/API/Bill.pm
 lib/Regru/API/Domain.pm
 lib/Regru/API/Folder.pm
+lib/Regru/API/Hosting.pm
 lib/Regru/API/Response.pm
 lib/Regru/API/Role/Client.pm
 lib/Regru/API/Role/Loggable.pm
@@ -32,6 +34,7 @@ t/15-namespace_service.t
 t/16-namespace_folder.t
 t/17-namespace_bill.t
 t/18-namespace_as_param.t
+t/19-namespace_hosting.t
 t/30-response.t
 t/author-test-eol.t
 t/lib/Connection.pm

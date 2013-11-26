@@ -1,9 +1,9 @@
 use strict;
 use warnings;
 
-# this test was generated with Dist::Zilla::Plugin::Test::Compile 2.036
+# this test was generated with Dist::Zilla::Plugin::Test::Compile 2.037
 
-use Test::More  tests => 13 + ($ENV{AUTHOR_TESTING} ? 1 : 0);
+use Test::More  tests => 14 + ($ENV{AUTHOR_TESTING} ? 1 : 0);
 
 
 
@@ -12,6 +12,7 @@ my @module_files = (
     'Regru/API/Bill.pm',
     'Regru/API/Domain.pm',
     'Regru/API/Folder.pm',
+    'Regru/API/Hosting.pm',
     'Regru/API/Response.pm',
     'Regru/API/Role/Client.pm',
     'Regru/API/Role/Loggable.pm',
@@ -30,7 +31,7 @@ use File::Temp;
 local $ENV{HOME} = File::Temp::tempdir( CLEANUP => 1 );
 
 
-my $inc_switch = q[-Mblib];
+my $inc_switch = -d 'blib' ? '-Mblib' : '-Ilib';
 
 use File::Spec;
 use IPC::Open3;

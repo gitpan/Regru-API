@@ -9,7 +9,7 @@ use Regru::API::Response;
 use namespace::autoclean;
 use Carp;
 
-our $VERSION = '0.042'; # VERSION
+our $VERSION = '0.043'; # VERSION
 our $AUTHORITY = 'cpan:IMAGO'; # AUTHORITY
 
 with qw(
@@ -127,7 +127,7 @@ __END__
 
 =pod
 
-=encoding utf-8
+=encoding UTF-8
 
 =head1 NAME
 
@@ -135,7 +135,7 @@ Regru::API::Role::Client - something that makes requests to API
 
 =head1 VERSION
 
-version 0.042
+version 0.043
 
 =head1 SYNOPSIS
 
