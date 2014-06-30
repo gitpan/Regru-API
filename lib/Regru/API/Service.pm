@@ -7,7 +7,7 @@ use warnings;
 use Moo;
 use namespace::autoclean;
 
-our $VERSION = '0.043'; # VERSION
+our $VERSION = '0.044'; # VERSION
 our $AUTHORITY = 'cpan:IMAGO'; # AUTHORITY
 
 with 'Regru::API::Role::Client';
@@ -58,7 +58,7 @@ Regru::API::Service - REG.API v2 service management
 
 =head1 VERSION
 
-version 0.043
+version 0.044
 
 =head1 DESCRIPTION
 
@@ -84,7 +84,7 @@ For testing purposes. Scope: B<clients>. Typical usage:
 Answer will contains a field C<services> with a list of results for each involved to this operation services (domain names,
 hosting plans, certificates, etc) or error otherwise.
 
-More info at L<Service management: nop|https://www.reg.com/support/help/API-version2#service_nop>.
+More info at L<Service management: nop|https://www.reg.com/support/help/api2#service_nop>.
 
 =head2 get_prices
 
@@ -96,7 +96,7 @@ Gets a service registration/renewal pricing. Scope: B<everyone>. Typical usage:
 
 Answer will contains a field C<prices> with a list of all available services, their names, types, billing term and price.
 
-More info at L<Service management: get_prices|https://www.reg.com/support/help/API-version2#service_get_prices>.
+More info at L<Service management: get_prices|https://www.reg.com/support/help/api2#service_get_prices>.
 
 =head2 get_servtype_details
 
@@ -111,7 +111,7 @@ Gets detailed information about service. Scope: B<clients>. Typical usage:
 Answer will contains a list of all available plans and parameters for requested types of services, their names,
 types, billing term and prices for registration and renewal.
 
-More info at L<Service management: get_servtype_details|https://www.reg.com/support/help/API-version2#service_get_servtype_details>.
+More info at L<Service management: get_servtype_details|https://www.reg.com/support/help/api2#service_get_servtype_details>.
 
 =head2 create
 
@@ -153,7 +153,7 @@ Orders a new service. Scope: B<clients>. Typical usage:
         servtype            => 'srv_ssl_sertificate',
         subtype             => 'sslwebserver',              # Thawte SSL Web Server
         server_type         => 'apachessl',                 # server software
-        csrString           => $csreq,                      # certificate request as string
+        csr_string          => $csreq,                      # certificate request as string
         approver_email      => 'webmaster@kramerica.com',   # email for confirmation
 
         # organization
@@ -182,7 +182,7 @@ Orders a new service. Scope: B<clients>. Typical usage:
 Successful answer will contains a newly created service and invoice indentifiers, description of order and total
 amount of charges or error otherwise.
 
-More info at L<Service management: create|https://www.reg.com/support/help/API-version2#service_create>.
+More info at L<Service management: create|https://www.reg.com/support/help/api2#service_create>.
 
 =head2 delete
 
@@ -195,7 +195,7 @@ Refuses from using active service. Scope: B<clients>. Typical usage:
 
 Returns a success response or error if any.
 
-More info at L<Service management: delete|https://www.reg.com/support/help/API-version2#service_delete>.
+More info at L<Service management: delete|https://www.reg.com/support/help/api2#service_delete>.
 
 =head2 get_info
 
@@ -212,7 +212,7 @@ Obtains a detailed information about service(s) by domain name(s). Scope: B<clie
 Answer will contains a field C<services> with a list of services, their subtypes, states, dates of creation and
 dates of expiration. Also a list of folders accociated with services might be included.
 
-More info at L<Service management: get_info|https://www.reg.com/support/help/API-version2#service_get_info>.
+More info at L<Service management: get_info|https://www.reg.com/support/help/api2#service_get_info>.
 
 =head2 get_list
 
@@ -227,7 +227,7 @@ In case of C<servtype> is not defined the full list of active services will be r
 Answer will contains a field C<services> with a list of services, their subtypes, states, dates of creation and
 dates of expiration.
 
-More info at L<Service management: get_list|https://www.reg.com/support/help/API-version2#service_get_list>.
+More info at L<Service management: get_list|https://www.reg.com/support/help/api2#service_get_list>.
 
 =head2 get_folders
 
@@ -244,7 +244,7 @@ Returns a list of folders associated with a service. Scope: B<clients>. Typical 
 
 Answer will contains a field C<folders> with a list of folder associated with service or empty list if no those folders.
 
-More info at L<Service management: get_folders|https://www.reg.com/support/help/API-version2#service_get_folders>.
+More info at L<Service management: get_folders|https://www.reg.com/support/help/api2#service_get_folders>.
 
 =head2 get_details
 
@@ -260,7 +260,7 @@ Scope: B<clients>. Typical usage:
 
 Answer will contains a field C<services> with a list of detailed information for each services or error otherwise.
 
-More info at L<Service management: get_details|https://www.reg.com/support/help/API-version2#service_get_details>.
+More info at L<Service management: get_details|https://www.reg.com/support/help/api2#service_get_details>.
 
 =head2 get_dedicated_server_list
 
@@ -270,7 +270,7 @@ Gets a dedicated servers' list avaliable for order. Scope: B<clients>. Typical u
 
 Answer will contains a field C<server_list> with a list of dedicated configurations available for order.
 
-More info at L<Service management: get_dedicated_server_list|https://www.reg.com/support/help/API-version2#service_get_dedicated_server_list>.
+More info at L<Service management: get_dedicated_server_list|https://www.reg.com/support/help/api2#service_get_dedicated_server_list>.
 
 =head2 update
 
@@ -290,7 +290,7 @@ Updates service configuration. Scope: B<clients>. Typical usage:
 This one is similar to method L</create>. Answer will contains a field C<descr> with a description of the order
 or error otherwise.
 
-More info at L<Service management: update|https://www.reg.com/support/help/API-version2#service_update>.
+More info at L<Service management: update|https://www.reg.com/support/help/api2#service_update>.
 
 =head2 renew
 
@@ -313,7 +313,7 @@ Renewals the service(s) (domain name, hosting, SSL certificate, etc). Scope: B<c
 Answer will contains a set of fields like renewal period, invoice identifier, currency and amount of charges,.. for each of
 services or error otherwise.
 
-More info at L<Service management: renew|https://www.reg.com/support/help/API-version2#service_renew>.
+More info at L<Service management: renew|https://www.reg.com/support/help/api2#service_renew>.
 
 =head2 get_bills
 
@@ -328,7 +328,7 @@ Gets a list of invoices associated with service(s). Scope: B<partners>. Typical 
 Answer will contains a field C<services> with a list of services, their types, id and list of invoices (field C<bills>)
 or error otherwise.
 
-More info at L<Service management: get_bills|https://www.reg.com/support/help/API-version2#service_get_bills>.
+More info at L<Service management: get_bills|https://www.reg.com/support/help/api2#service_get_bills>.
 
 =head2 set_autorenew_flag
 
@@ -341,7 +341,7 @@ Manages automatic service renewals. Scope: B<clients>. Typical usage:
 
 Returns just a successful/error response.
 
-More info at L<Service management: set_autorenew_flag|https://www.reg.com/support/help/API-version2#service_set_autorenew_flag>.
+More info at L<Service management: set_autorenew_flag|https://www.reg.com/support/help/api2#service_set_autorenew_flag>.
 
 =head2 suspend
 
@@ -353,7 +353,7 @@ Suspends service usage. Scope: B<clients>. Typical usage:
 
 For domain names means a suspending delegation of the. Returns just a successful/error response.
 
-More info at L<Service management: suspend|https://www.reg.com/support/help/API-version2#service_suspend>.
+More info at L<Service management: suspend|https://www.reg.com/support/help/api2#service_suspend>.
 
 =head2 resume
 
@@ -365,7 +365,7 @@ Resumes service usage. Scope: B<clients>. Typical usage:
 
 For domain names means a resuming delegation of the. Returns just a successful/error response.
 
-More info at L<Service management: resume|https://www.reg.com/support/help/API-version2#service_resume>.
+More info at L<Service management: resume|https://www.reg.com/support/help/api2#service_resume>.
 
 =head2 get_depreciated_period
 
@@ -378,7 +378,7 @@ Gets the number of billing terms till the service expiration date. Scope: B<clie
 
 Answer will contains a field C<depreciated_period> with a number of terms or error otherwise.
 
-More info at L<Service management: get_depreciated_period|https://www.reg.com/support/help/API-version2#service_get_depreciated_period>.
+More info at L<Service management: get_depreciated_period|https://www.reg.com/support/help/api2#service_get_depreciated_period>.
 
 =head2 upgrade
 
@@ -394,7 +394,7 @@ disk space (C<srv_disk_space>). Scope: B<clients>. Typical usage:
 
 Answer will contains a withdrawal amount and a new service identifier or error otherwise.
 
-More info at L<Service management: upgrade |https://www.reg.com/support/help/API-version2#service_upgrade>.
+More info at L<Service management: upgrade |https://www.reg.com/support/help/api2#service_upgrade>.
 
 =head2 partcontrol_grant
 
@@ -408,7 +408,7 @@ Grants service management to other user. Scope: B<clients>. Typical usage:
 Answer will contains a field user login (C<newlogin>)to whom the right were granted and the service identifier C<service_id>
 or error otherwise.
 
-More info at L<Service management: partcontrol_grant|https://www.reg.com/support/help/API-version2#service_partcontrol_grant>.
+More info at L<Service management: partcontrol_grant|https://www.reg.com/support/help/api2#service_partcontrol_grant>.
 
 =head2 partcontrol_revoke
 
@@ -420,7 +420,7 @@ Revokes service management from other user. Scope: B<clients>. Typical usage:
 
 Answer will contains a service identifier C<service_id> or error otherwise.
 
-More info at L<Service management: partcontrol_revoke|https://www.reg.com/support/help/API-version2#service_partcontrol_revoke>.
+More info at L<Service management: partcontrol_revoke|https://www.reg.com/support/help/api2#service_partcontrol_revoke>.
 
 =head2 resend_mail
 
@@ -434,7 +434,7 @@ Resends an email to user. Applicable only for hosting services and SSL certifica
 
 Answer will contains a domain name and service identifier or error otherwise.
 
-More info at L<Service management: resend_mail|https://www.reg.com/support/help/API-version2#service_resend_mail>.
+More info at L<Service management: resend_mail|https://www.reg.com/support/help/api2#service_resend_mail>.
 
 =head2 refill
 
@@ -448,7 +448,7 @@ associated with the specified service_id. Scope: B<clients>. Typical usage:
     );
 
 Answer will contain information about created invoice, such as invoice currency, charged sum, bill number.
-More info at L<Service management: refill|https://www.reg.com/support/help/API-version2#service_refill>.
+More info at L<Service management: refill|https://www.reg.com/support/help/api2#service_refill>.
 
 =head1 SEE ALSO
 
@@ -456,9 +456,9 @@ L<Regru::API>
 
 L<Regru::API::Role::Client>
 
-L<REG.API Service management|https://www.reg.com/support/help/API-version2#service_fn>
+L<REG.API Service management|https://www.reg.com/support/help/api2#service_functions>
 
-L<REG.API Common error codes|https://www.reg.com/support/help/API-version2#std_error_codes>.
+L<REG.API Common error codes|https://www.reg.com/support/help/api2#common_errors>
 
 =head1 BUGS
 

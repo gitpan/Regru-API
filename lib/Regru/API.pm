@@ -9,7 +9,7 @@ use Carp ();
 use Class::Load qw(try_load_class);
 use namespace::autoclean;
 
-our $VERSION = '0.043'; # VERSION
+our $VERSION = '0.044'; # VERSION
 our $AUTHORITY = 'cpan:IMAGO'; # AUTHORITY
 
 with 'Regru::API::Role::Client';
@@ -29,6 +29,7 @@ sub available_namespaces {[qw(
     folder
     service
     hosting
+    shop
 )]}
 
 sub _get_namespace_handler {
@@ -92,7 +93,7 @@ Regru::API - Perl bindings for Reg.ru API v2
 
 =head1 VERSION
 
-version 0.043
+version 0.044
 
 =head1 SYNOPSIS
 
@@ -105,7 +106,7 @@ version 0.043
     my $resp = $client->nop;
 
     if ($resp->is_success) {
-        print $response->get('user_id');
+        print $resp->get('user_id');
     }
     else {
         print "Error code: " . $resp->error_code . ", Error text: " . $resp->error_text;
@@ -137,7 +138,7 @@ the registry (e.g. contact data, DNS servers, etc).
 
 Group similar items and execute a bulk API request. A bunch of methods supports sending request for the list of items at
 the same time (e.g. multiple domain names). Check the details at
-L<REG.API Service list identification parameters|https://www.reg.com/support/help/API-version2#inputparams_identification_multi>.
+L<REG.API Service list identification parameters|https://www.reg.com/support/help/api2#common_service_list_identification_params>.
 
 =item B<Journaling>
 
@@ -181,7 +182,7 @@ User account management methods.
     $client->user->nop;
 
 See L<Regru::API::User> for details and
-L<REG.API Account management functions|https://www.reg.com/support/help/API-version2#user_fn>.
+L<REG.API Account management functions|https://www.reg.com/support/help/api2#user_functions>.
 
 =item B<domain>
 
@@ -193,7 +194,7 @@ Domain names management methods.
     );
 
 See L<Regru::API::Domain> for details and
-L<REG.API Domain management functions|https://www.reg.com/support/help/API-version2#domain_fn>.
+L<REG.API Domain management functions|https://www.reg.com/support/help/api2#domain_functions>.
 
 =item B<zone>
 
@@ -205,7 +206,7 @@ DNS resource records management methods.
     );
 
 See L<Regru::API::Zone> for details and
-L<REG.API DNS management functions|https://www.reg.com/support/help/API-version2#zone_fn>.
+L<REG.API DNS management functions|https://www.reg.com/support/help/api2#zone_functions>.
 
 =item B<service>
 
@@ -218,7 +219,7 @@ Service management methods.
     );
 
 See L<Regru::API::Service> for details and
-L<REG.API Service management functions|https://www.reg.com/support/help/API-version2#service_fn>.
+L<REG.API Service management functions|https://www.reg.com/support/help/api2#service_functions>.
 
 =item B<folder>
 
@@ -230,7 +231,7 @@ User folders management methods.
     );
 
 See L<Regru::API::Folder> for details and
-L<REG.API Folder management functions|https://www.reg.com/support/help/API-version2#folder_fn>.
+L<REG.API Folder management functions|https://www.reg.com/support/help/api2#folder_functions>.
 
 =item B<bill>
 
@@ -242,7 +243,29 @@ Invoice management methods.
     );
 
 See L<Regru::API::Bill> for details and
-L<REG.API Invoice management functions|https://www.reg.com/support/help/API-version2#bill_fn>.
+L<REG.API Invoice management functions|https://www.reg.com/support/help/api2#bill_functions>.
+
+=item B<hosting>
+
+Hosting management methods.
+
+    # suppose we already have a client
+    $client->hosting->set_jelastic_refill_url(
+        url => 'http://mysite.com?service_id=<service_id>&email=<email>'
+    );
+
+See L<Regru::API::Hosting> for details and
+L<REG.API Hosting management functions|https://www.reg.com/support/help/api2#hosting_functions>.
+
+=item B<shop>
+
+Domain shop management methods.
+
+    # suppose we already have a client
+    $client->shop->get_info();
+
+See L<Regru::API::Shop> for details and
+L<REG.API Domain shop management functions|https://www.reg.com/support/help/api2#shop_functions>.
 
 =back
 
@@ -292,14 +315,14 @@ The group of parameters with aims to point to the particular service or group of
 folders, etc. Should be passed to an API request together with C<method specific parameters>.
 
 More info at
-L<REG.API Service identification parameters|https://www.reg.com/support/help/API-version2#inputparams_identification>
+L<REG.API Service identification parameters|https://www.reg.com/support/help/api2#common_service_identification_params>
 
 =item B<method specific parameters>
 
 Parameters applicable to a particular API method. Very wide group. Strongly recommended to consult with REG.API documentation
 for each method before perform an API request to it. The distribution's manual pages includes links to documentation
 for each API method call. The main source for the method specific parameters available at
-L<REG.API General description of functions|https://www.reg.com/support/help/API-version2#common_fn_descr>.
+L<REG.API General description of functions|https://www.reg.com/support/help/api2#common_functions_description>.
 
 =back
 
@@ -325,13 +348,13 @@ result of API request was finished with error.
 
 The error code of API method call. May appear only when result of API request finished with error. Can be accessed via
 attribute L<error_code|Regru::API::Response/error_code>.
-See details at L<REG.API Common error codes|https://www.reg.com/support/help/API-version2#std_error_codes>.
+See details at L<REG.API Common error codes|https://www.reg.com/support/help/api2#common_errors>.
 
 =item B<error_text>
 
 The short description of error. The language depends on option lang L</new> passed to constructor. May appear only when result
 of API request finished with error. Can be accessed via attribute L<error_text|Regru::API::Response/error_text>.
-See details at L<REG.API Common error codes|https://www.reg.com/support/help/API-version2#std_error_codes>.
+See details at L<REG.API Common error codes|https://www.reg.com/support/help/api2#common_errors>.
 
 =item B<error_params>
 
@@ -462,6 +485,14 @@ Returns a handler to access to REG.API folder management methods. See L<Regru::A
 
 Returns a handler to access to REG.API invoice management methods. See L<Regru::API::Bill>.
 
+=head2 hosting
+
+Returns a handler to access to REG.API hosting management methods. See L<Regru::API::Hosting>.
+
+=head2 shop
+
+Returns a handler to access to REG.API domain shop management methods. See L<Regru::API::Shop>.
+
 =head2 namespace_handlers
 
 Creates shortcuts to REG.API categories (namespaces). Used internally.
@@ -476,7 +507,7 @@ For testing purposes. Scope: B<everyone>. Typical usage:
 
 Answer will contains an user_id and login fields.
 
-More info at L<Common functions: nop|https://www.reg.com/support/help/API-version2#nop>.
+More info at L<Common functions: nop|https://www.reg.com/support/help/api2#common_nop>.
 
 =head2 reseller_nop
 
@@ -486,7 +517,7 @@ Similar to previous one but only for partners. Scope: B<partners>. Typical usage
 
 Answer will contains an user_id and login fields.
 
-More info at L<Common functions: nop|https://www.reg.com/support/help/API-version2#reseller_nop>.
+More info at L<Common functions: nop|https://www.reg.com/support/help/api2#common_reseller_nop>.
 
 =head2 get_user_id
 
@@ -496,7 +527,7 @@ Get the identifier of the current user. Scope: B<clients>. Typical usage:
 
 Answer will contains an user_id field.
 
-More info at L<Common functions: nop|https://www.reg.com/support/help/API-version2#get_user_id>.
+More info at L<Common functions: nop|https://www.reg.com/support/help/api2#common_get_user_id>.
 
 =head2 get_service_id
 
@@ -508,7 +539,7 @@ Get service or domain name identifier by its name. Scope: B<clients>. Typical us
 
 Answer will contains a service_id field or error code if requested domain name/service not found.
 
-More info at L<Common functions: nop|https://www.reg.com/support/help/API-version2#get_service_id>.
+More info at L<Common functions: nop|https://www.reg.com/support/help/api2#common_get_service_id>.
 
 =head1 SEE ALSO
 
@@ -524,11 +555,15 @@ L<Regru::API::User>
 
 L<Regru::API::Zone>
 
+L<Regru::API::Hosting>
+
+L<Regru::API::Shop>
+
 L<Regru::API::Response>
 
-L<REG.API Common functions|https://www.reg.com/support/help/API-version2#tests_fn>
+L<REG.API Common functions|https://www.reg.com/support/help/api2#common_functions>
 
-L<REG.API Common error codes|https://www.reg.com/support/help/API-version2#std_error_codes>
+L<REG.API Common error codes|https://www.reg.com/support/help/api2#common_errors>
 
 =head1 BUGS
 

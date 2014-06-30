@@ -2,7 +2,7 @@ NAME
     Regru::API - Perl bindings for Reg.ru API v2
 
 VERSION
-    version 0.043
+    version 0.044
 
 SYNOPSIS
         my $client = Regru::API->new(
@@ -14,7 +14,7 @@ SYNOPSIS
         my $resp = $client->nop;
 
         if ($resp->is_success) {
-            print $response->get('user_id');
+            print $resp->get('user_id');
         }
         else {
             print "Error code: " . $resp->error_code . ", Error text: " . $resp->error_text;
@@ -49,8 +49,8 @@ DESCRIPTION
         methods supports sending request for the list of items at the same
         time (e.g. multiple domain names). Check the details at REG.API
         Service list identification parameters
-        <https://www.reg.com/support/help/API-version2#inputparams_identific
-        ation_multi>.
+        <https://www.reg.com/support/help/api2#common_service_list_identific
+        ation_params>.
 
     Journaling
         Keep the logs of interactions with REG.API (requests and responses).
@@ -90,7 +90,7 @@ DESCRIPTION
             $client->user->nop;
 
         See Regru::API::User for details and REG.API Account management
-        functions <https://www.reg.com/support/help/API-version2#user_fn>.
+        functions <https://www.reg.com/support/help/api2#user_functions>.
 
     domain
         Domain names management methods.
@@ -101,7 +101,7 @@ DESCRIPTION
             );
 
         See Regru::API::Domain for details and REG.API Domain management
-        functions <https://www.reg.com/support/help/API-version2#domain_fn>.
+        functions <https://www.reg.com/support/help/api2#domain_functions>.
 
     zone
         DNS resource records management methods.
@@ -112,7 +112,7 @@ DESCRIPTION
             );
 
         See Regru::API::Zone for details and REG.API DNS management
-        functions <https://www.reg.com/support/help/API-version2#zone_fn>.
+        functions <https://www.reg.com/support/help/api2#zone_functions>.
 
     service
         Service management methods.
@@ -124,8 +124,7 @@ DESCRIPTION
             );
 
         See Regru::API::Service for details and REG.API Service management
-        functions
-        <https://www.reg.com/support/help/API-version2#service_fn>.
+        functions <https://www.reg.com/support/help/api2#service_functions>.
 
     folder
         User folders management methods.
@@ -136,7 +135,7 @@ DESCRIPTION
             );
 
         See Regru::API::Folder for details and REG.API Folder management
-        functions <https://www.reg.com/support/help/API-version2#folder_fn>.
+        functions <https://www.reg.com/support/help/api2#folder_functions>.
 
     bill
         Invoice management methods.
@@ -147,7 +146,27 @@ DESCRIPTION
             );
 
         See Regru::API::Bill for details and REG.API Invoice management
-        functions <https://www.reg.com/support/help/API-version2#bill_fn>.
+        functions <https://www.reg.com/support/help/api2#bill_functions>.
+
+    hosting
+        Hosting management methods.
+
+            # suppose we already have a client
+            $client->hosting->set_jelastic_refill_url(
+                url => 'http://mysite.com?service_id=<service_id>&email=<email>'
+            );
+
+        See Regru::API::Hosting for details and REG.API Hosting management
+        functions <https://www.reg.com/support/help/api2#hosting_functions>.
+
+    shop
+        Domain shop management methods.
+
+            # suppose we already have a client
+            $client->shop->get_info();
+
+        See Regru::API::Shop for details and REG.API Domain shop management
+        functions <https://www.reg.com/support/help/api2#shop_functions>.
 
   Methods accessibility
     All REG.API methods can be divided into categories of accessibility. On
@@ -190,8 +209,8 @@ DESCRIPTION
         passed to an API request together with "method specific parameters".
 
         More info at REG.API Service identification parameters
-        <https://www.reg.com/support/help/API-version2#inputparams_identific
-        ation>
+        <https://www.reg.com/support/help/api2#common_service_identification
+        _params>
 
     method specific parameters
         Parameters applicable to a particular API method. Very wide group.
@@ -200,7 +219,8 @@ DESCRIPTION
         manual pages includes links to documentation for each API method
         call. The main source for the method specific parameters available
         at REG.API General description of functions
-        <https://www.reg.com/support/help/API-version2#common_fn_descr>.
+        <https://www.reg.com/support/help/api2#common_functions_description>
+        .
 
   Response parameters
     Response parameters of the API request automatically handles by
@@ -221,14 +241,14 @@ DESCRIPTION
         The error code of API method call. May appear only when result of
         API request finished with error. Can be accessed via attribute
         error_code. See details at REG.API Common error codes
-        <https://www.reg.com/support/help/API-version2#std_error_codes>.
+        <https://www.reg.com/support/help/api2#common_errors>.
 
     error_text
         The short description of error. The language depends on option lang
         "new" passed to constructor. May appear only when result of API
         request finished with error. Can be accessed via attribute
         error_text. See details at REG.API Common error codes
-        <https://www.reg.com/support/help/API-version2#std_error_codes>.
+        <https://www.reg.com/support/help/api2#common_errors>.
 
     error_params
         Additional parameters included to the error. May appear only when
@@ -319,7 +339,7 @@ METHODS
             $client->lang('ru');
 
             $client->username('bogus-user');
-            print $client->nop->error_text; # -> "ÐÑÐ¸Ð±ÐºÐ° Ð°ÑÑÐµÐ½ÑÐ¸ÑÐ¸ÐºÐ°ÑÐ¸Ð¸ Ð¿Ð¾ Ð¿Ð°ÑÐ¾Ð»Ñ"
+            print $client->nop->error_text; # -> "Ошибка аутентификации по паролю"
 
     debug
         A few messages will be printed to STDERR. Default value is 0
@@ -354,6 +374,14 @@ METHODS
     Returns a handler to access to REG.API invoice management methods. See
     Regru::API::Bill.
 
+  hosting
+    Returns a handler to access to REG.API hosting management methods. See
+    Regru::API::Hosting.
+
+  shop
+    Returns a handler to access to REG.API domain shop management methods.
+    See Regru::API::Shop.
+
   namespace_handlers
     Creates shortcuts to REG.API categories (namespaces). Used internally.
 
@@ -366,7 +394,7 @@ REG.API METHODS
     Answer will contains an user_id and login fields.
 
     More info at Common functions: nop
-    <https://www.reg.com/support/help/API-version2#nop>.
+    <https://www.reg.com/support/help/api2#common_nop>.
 
   reseller_nop
     Similar to previous one but only for partners. Scope: partners. Typical
@@ -377,7 +405,7 @@ REG.API METHODS
     Answer will contains an user_id and login fields.
 
     More info at Common functions: nop
-    <https://www.reg.com/support/help/API-version2#reseller_nop>.
+    <https://www.reg.com/support/help/api2#common_reseller_nop>.
 
   get_user_id
     Get the identifier of the current user. Scope: clients. Typical usage:
@@ -387,7 +415,7 @@ REG.API METHODS
     Answer will contains an user_id field.
 
     More info at Common functions: nop
-    <https://www.reg.com/support/help/API-version2#get_user_id>.
+    <https://www.reg.com/support/help/api2#common_get_user_id>.
 
   get_service_id
     Get service or domain name identifier by its name. Scope: clients.
@@ -401,7 +429,7 @@ REG.API METHODS
     domain name/service not found.
 
     More info at Common functions: nop
-    <https://www.reg.com/support/help/API-version2#get_service_id>.
+    <https://www.reg.com/support/help/api2#common_get_service_id>.
 
 SEE ALSO
     Regru::API::Bill
@@ -416,13 +444,17 @@ SEE ALSO
 
     Regru::API::Zone
 
+    Regru::API::Hosting
+
+    Regru::API::Shop
+
     Regru::API::Response
 
     REG.API Common functions
-    <https://www.reg.com/support/help/API-version2#tests_fn>
+    <https://www.reg.com/support/help/api2#common_functions>
 
     REG.API Common error codes
-    <https://www.reg.com/support/help/API-version2#std_error_codes>
+    <https://www.reg.com/support/help/api2#common_errors>
 
 BUGS
     Please report any bugs or feature requests on the bugtracker website

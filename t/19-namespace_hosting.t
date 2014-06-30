@@ -29,7 +29,7 @@ SKIP: {
             plan skip_all => '.';
         }
         else {
-            plan tests => 2;
+            plan tests => 3;
         }
 
         my $resp;
@@ -43,6 +43,12 @@ SKIP: {
             url      => 'http://reg.ru/refill?service_id=<service_id>',
         );
         ok $resp->is_success,                                   'set_jelastic_refill_url() success';
+
+        # /hosting/get_parallelswpb_constructor_url
+        $resp = $client->get_parallelswpb_constructor_url(
+            service_id => 2312676,
+        );
+        ok $resp->is_success,                                   'get_parallelswpb_constructor_url() success';
     };
 
 }

@@ -7,7 +7,7 @@ use warnings;
 use Moo;
 use namespace::autoclean;
 
-our $VERSION = '0.043'; # VERSION
+our $VERSION = '0.044'; # VERSION
 our $AUTHORITY = 'cpan:IMAGO'; # AUTHORITY
 
 with 'Regru::API::Role::Client';
@@ -20,6 +20,7 @@ sub available_methods {[qw(
     nop
     get_jelastic_refill_url
     set_jelastic_refill_url
+    get_parallelswpb_constructor_url
 )]}
 
 __PACKAGE__->namespace_methods;
@@ -39,11 +40,11 @@ Regru::API::Hosting - REG.API v2 hosting management functions
 
 =head1 VERSION
 
-version 0.043
+version 0.044
 
 =head1 DESCRIPTION
 
-REG.API hosting management. Only two functions are available for now, for Jelastic resellers.
+REG.API hosting management functions. Most of their available only for C<partners>.
 
 =head1 ATTRIBUTES
 
@@ -61,7 +62,7 @@ For testing purposes. Scope: B<everyone>. Typical usage:
 
 Returns success response.
 
-More info at L<Hosting management: nop|https://www.reg.com/support/help/API-version2#hosting_nop>.
+More info at L<Hosting management: nop|https://www.reg.com/support/help/api2#hosting_nop>.
 
 =head2 set_jelastic_refill_url
 
@@ -76,17 +77,29 @@ Typical usage:
     );
 
 Returns success response if URL was set.
-More info at L<Hosting management: set_jelastic_refill_url|https://www.reg.com/support/help/API-version2#hosting_set_jelastic_refill_url>.
+More info at L<Hosting management: set_jelastic_refill_url|https://www.reg.com/support/help/api2#hosting_set_jelastic_refill_url>.
 
 =head2 get_jelastic_refill_url
 
-Fetch Jelastic refill URL for current reseller.Scope: B<partners>. Typical usage:
+Fetch Jelastic refill URL for current reseller. Scope: B<partners>. Typical usage:
 
     $resp = $client->hosting->get_jelastic_refill_url;
 
-Answer will contain the url field, with reseller refill url.
+Answer will contain the C<url> field, with reseller refill url.
 
-More info at L<Hosting management: get_jelastic_refill_url|https://www.reg.com/support/help/API-version2#hosting_get_jelastic_refill_url>.
+More info at L<Hosting management: get_jelastic_refill_url|https://www.reg.com/support/help/api2#hosting_get_jelastic_refill_url>.
+
+=head2 get_parallelswpb_constructor_url
+
+Retrieves an URL for ParallelsWPB constructor. Scope: B<clients>. Typical usage:
+
+    $resp = $client->hosting->get_parallelswpb_constructor_url(
+        service_id => 2312677,
+    );
+
+Answer will contain the C<url> field, with URL for ParallelsWPB constructor.
+
+More info at L<Hosting management: get_parallelswpb_constructor_url|https://www.reg.com/support/help/api2#hosting_get_parallelswpb_constructor_url>.
 
 =head1 SEE ALSO
 
@@ -94,9 +107,9 @@ L<Regru::API>
 
 L<Regru::API::Role::Client>
 
-L<REG.API Hosting management|https://www.reg.com/support/help/API-version2#hosting_fn>
+L<REG.API Hosting management|https://www.reg.com/support/help/api2#hosting_functions>
 
-L<REG.API Common error codes|https://www.reg.com/support/help/API-version2#std_error_codes>.
+L<REG.API Common error codes|https://www.reg.com/support/help/api2#common_errors>
 
 =head1 BUGS
 

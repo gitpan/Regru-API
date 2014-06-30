@@ -3,7 +3,7 @@ use warnings;
 
 # this test was generated with Dist::Zilla::Plugin::Test::Compile 2.037
 
-use Test::More  tests => 14 + ($ENV{AUTHOR_TESTING} ? 1 : 0);
+use Test::More  tests => 15 + ($ENV{AUTHOR_TESTING} ? 1 : 0);
 
 
 
@@ -20,6 +20,7 @@ my @module_files = (
     'Regru/API/Role/Serializer.pm',
     'Regru/API/Role/UserAgent.pm',
     'Regru/API/Service.pm',
+    'Regru/API/Shop.pm',
     'Regru/API/User.pm',
     'Regru/API/Zone.pm'
 );

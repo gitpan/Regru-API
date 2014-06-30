@@ -27,6 +27,7 @@ my @files = (
     'lib/Regru/API/Role/Serializer.pm',
     'lib/Regru/API/Role/UserAgent.pm',
     'lib/Regru/API/Service.pm',
+    'lib/Regru/API/Shop.pm',
     'lib/Regru/API/User.pm',
     'lib/Regru/API/Zone.pm'
 );

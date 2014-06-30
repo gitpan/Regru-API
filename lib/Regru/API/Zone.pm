@@ -7,7 +7,7 @@ use warnings;
 use Moo;
 use namespace::autoclean;
 
-our $VERSION = '0.043'; # VERSION
+our $VERSION = '0.044'; # VERSION
 our $AUTHORITY = 'cpan:IMAGO'; # AUTHORITY
 
 with 'Regru::API::Role::Client';
@@ -53,7 +53,7 @@ Regru::API::Zone - REG.API v2 DNS resource records management
 
 =head1 VERSION
 
-version 0.043
+version 0.044
 
 =head1 DESCRIPTION
 
@@ -82,7 +82,7 @@ that hosted by REG.RU DNS servers only. Scope: B<clients>. Typical usage:
 Answer will contains a field C<domains> with a list of domain names which allows to manage resource records
 or error otherwise.
 
-More info at L<DNS management: nop|https://www.reg.com/support/help/API-version2#zone_nop>.
+More info at L<DNS management: nop|https://www.reg.com/support/help/api2#zone_nop>.
 
 =head2 add_alias
 
@@ -102,7 +102,7 @@ C<*> (asterisk) - catch-all resource record.
 Answer will contains a field C<domains> with a list of results for each involved to this operation domain names or
 error otherwise.
 
-More info at L<DNS management: add_alias|https://www.reg.com/support/help/API-version2#zone_add_alias>.
+More info at L<DNS management: add_alias|https://www.reg.com/support/help/api2#zone_add_alias>.
 
 =head2 add_aaaa
 
@@ -121,7 +121,7 @@ This one also supports a special names for subdomains. See note for L</add_alias
 Answer will contains a field C<domains> with a list of results for each involved to this operation domain names or
 error otherwise.
 
-More info at L<DNS management: add_aaaa|https://www.reg.com/support/help/API-version2#zone_add_aaaa>.
+More info at L<DNS management: add_aaaa|https://www.reg.com/support/help/api2#zone_add_aaaa>.
 
 =head2 add_cname
 
@@ -136,7 +136,7 @@ Creates a CNAME (canonical name) resource record for domain(s). Scope: B<clients
 Answer will contains a field C<domains> with a list of results for each involved to this operation domain names or
 error otherwise.
 
-More info at L<DNS management: add_cname|https://www.reg.com/support/help/API-version2#zone_add_cname>.
+More info at L<DNS management: add_cname|https://www.reg.com/support/help/api2#zone_add_cname>.
 
 =head2 add_mx
 
@@ -156,7 +156,7 @@ Creates a MX (mail exchange) resource record for domain(s). Scope: B<clients>. T
 Answer will contains a field C<domains> with a list of results for each involved to this operation domain names or
 error otherwise.
 
-More info at L<DNS management: add_mx|https://www.reg.com/support/help/API-version2#zone_add_mx>.
+More info at L<DNS management: add_mx|https://www.reg.com/support/help/api2#zone_add_mx>.
 
 =head2 add_ns
 
@@ -173,7 +173,7 @@ Typical usage:
 Answer will contains a field C<domains> with a list of results for each involved to this operation domain names or
 error otherwise.
 
-More info at L<DNS management: add_ns|https://www.reg.com/support/help/API-version2#zone_add_ns>.
+More info at L<DNS management: add_ns|https://www.reg.com/support/help/api2#zone_add_ns>.
 
 =head2 add_txt
 
@@ -188,7 +188,7 @@ Creates a TXT (text) resource record up to 512 characters in length. Scope: B<cl
 Answer will contains a field C<domains> with a list of results for each involved to this operation domain names or
 error otherwise.
 
-More info at L<DNS management: add_txt|https://www.reg.com/support/help/API-version2#zone_add_txt>.
+More info at L<DNS management: add_txt|https://www.reg.com/support/help/api2#zone_add_txt>.
 
 =head2 add_srv
 
@@ -206,7 +206,7 @@ Creates a SRV (service locator) resource record. Scope: B<clients>. Typical usag
 Answer will contains a field C<domains> with a list of results for each involved to this operation domain names or
 error otherwise.
 
-More info at L<DNS management: add_srv|https://www.reg.com/support/help/API-version2#zone_add_srv>.
+More info at L<DNS management: add_srv|https://www.reg.com/support/help/api2#zone_add_srv>.
 
 =head2 get_resource_records
 
@@ -222,7 +222,7 @@ Retrieves all resource records for domain(s). Scope: B<clients>. Typical usage:
 Answer will contains a field C<domains> with a list of domains. For each domain will be shown a resource records set (as a
 list), settings of the SOA resource record. If any error will occur this also will be reported.
 
-More info at L<DNS management: get_resource_records|https://www.reg.com/support/help/API-version2#zone_get_resource_records>.
+More info at L<DNS management: get_resource_records|https://www.reg.com/support/help/api2#zone_get_resource_records>.
 
 =head2 update_records
 
@@ -264,7 +264,7 @@ L</add_ns>, L</add_txt>, L</add_srv> or L</remove_record>.
 Answer will contains a field C<domains> with a list of results for each involved to this operation domain names and actions or
 error otherwise.
 
-More info at L<DNS management: update_records|https://www.reg.com/support/help/API-version2#zone_update_records>.
+More info at L<DNS management: update_records|https://www.reg.com/support/help/api2#zone_update_records>.
 
 =head2 update_soa
 
@@ -282,7 +282,7 @@ Changes a cache settings for the SOA (start of authority) resource record. Scope
 Answer will contains a field C<domains> with a list of results for each involved to this operation domain names or
 error otherwise.
 
-More info at L<DNS management: update_soa|https://www.reg.com/support/help/API-version2#zone_update_soa>.
+More info at L<DNS management: update_soa|https://www.reg.com/support/help/api2#zone_update_soa>.
 
 =head2 tune_forwarding
 
@@ -298,7 +298,7 @@ This can be done by using methods L<Regru::API::Domain/create> or L<Regru::API::
 Answer will contains a field C<domains> with a list of results for each involved to this operation domain names or
 error otherwise.
 
-More info at L<DNS management: tune_forwarding|https://www.reg.com/support/help/API-version2#zone_tune_forwarding>.
+More info at L<DNS management: tune_forwarding|https://www.reg.com/support/help/api2#zone_tune_forwarding>.
 
 =head2 clear_forwarding
 
@@ -314,7 +314,7 @@ This can be done by using methods L<Regru::API::Domain/create> or L<Regru::API::
 Answer will contains a field C<domains> with a list of results for each involved to this operation domain names or
 error otherwise.
 
-More info at L<DNS management: clear_forwarding|https://www.reg.com/support/help/API-version2#zone_clear_forwarding>.
+More info at L<DNS management: clear_forwarding|https://www.reg.com/support/help/api2#zone_clear_forwarding>.
 
 =head2 tune_parking
 
@@ -332,7 +332,7 @@ This can be done by using methods L<Regru::API::Domain/create> or L<Regru::API::
 Answer will contains a field C<domains> with a list of results for each involved to this operation domain names or
 error otherwise.
 
-More info at L<DNS management: tune_parking|https://www.reg.com/support/help/API-version2#zone_tune_parking>.
+More info at L<DNS management: tune_parking|https://www.reg.com/support/help/api2#zone_tune_parking>.
 
 =head2 clear_parking
 
@@ -350,7 +350,7 @@ This can be done by using methods L<Regru::API::Domain/create> or L<Regru::API::
 Answer will contains a field C<domains> with a list of results for each involved to this operation domain names or
 error otherwise.
 
-More info at L<DNS management: clear_parking|https://www.reg.com/support/help/API-version2#zone_clear_parking>.
+More info at L<DNS management: clear_parking|https://www.reg.com/support/help/api2#zone_clear_parking>.
 
 =head2 remove_record
 
@@ -368,7 +368,7 @@ Removes any resource record from domain name(s). Scope: B<clients>. Typical usag
 Answer will contains a field C<domains> with a list of results for each involved to this operation domain names or
 error otherwise.
 
-More info at L<DNS management: remove_record|https://www.reg.com/support/help/API-version2#zone_remove_record>.
+More info at L<DNS management: remove_record|https://www.reg.com/support/help/api2#zone_remove_record>.
 
 =head2 clear
 
@@ -386,7 +386,7 @@ Deletes ALL resource records. Scope: B<clients>. Typical usage:
 Answer will contains a field C<domains> with a list of results for each involved to this operation domain names or
 error otherwise.
 
-More info at L<DNS management: clear|https://www.reg.com/support/help/API-version2#zone_clear>.
+More info at L<DNS management: clear|https://www.reg.com/support/help/api2#zone_clear>.
 
 =head1 SEE ALSO
 
@@ -396,9 +396,9 @@ L<Regru::API::Role::Client>
 
 L<Regru::API::Domain>
 
-L<REG.API DNS management|https://www.reg.com/support/help/API-version2#zone_fn>
+L<REG.API DNS management|https://www.reg.com/support/help/api2#zone_functions>
 
-L<REG.API Common error codes|https://www.reg.com/support/help/API-version2#std_error_codes>.
+L<REG.API Common error codes|https://www.reg.com/support/help/api2#common_errors>
 
 =head1 BUGS
 

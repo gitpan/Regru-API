@@ -9,7 +9,7 @@ use Try::Tiny;
 use Carp;
 use namespace::autoclean;
 
-our $VERSION = '0.043'; # VERSION
+our $VERSION = '0.044'; # VERSION
 our $AUTHORITY = 'cpan:IMAGO'; # AUTHORITY
 
 with qw(
@@ -96,7 +96,7 @@ Regru::API::Response - REG.API v2 response wrapper
 
 =head1 VERSION
 
-version 0.043
+version 0.044
 
 =head1 SYNOPSIS
 
@@ -151,7 +151,7 @@ This is useful for debugging;
 Contains error code for the most last API request if it has not been successful.
 
 Full list error codes list is available at
-L<REG.API Common error codes|https://www.reg.com/support/help/API-version2#std_error_codes>.
+L<REG.API Common error codes|https://www.reg.com/support/help/api2#common_errors>.
 
 =head2 error_text
 
@@ -212,7 +212,7 @@ L<HTTP::Response>
 
 L<LWP::UserAgent>
 
-L<REG.API Common error codes|https://www.reg.com/support/help/API-version2#std_error_codes>.
+L<REG.API Common error codes|https://www.reg.com/support/help/api2#common_errors>
 
 =head1 BUGS
 

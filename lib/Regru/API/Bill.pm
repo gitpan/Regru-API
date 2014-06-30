@@ -7,7 +7,7 @@ use warnings;
 use Moo;
 use namespace::autoclean;
 
-our $VERSION = '0.043'; # VERSION
+our $VERSION = '0.044'; # VERSION
 our $AUTHORITY = 'cpan:IMAGO'; # AUTHORITY
 
 with 'Regru::API::Role::Client';
@@ -41,7 +41,7 @@ Regru::API::Bill - REG.API v2 invoice management
 
 =head1 VERSION
 
-version 0.043
+version 0.044
 
 =head1 DESCRIPTION
 
@@ -70,7 +70,7 @@ For testing purposes. Scope: B<everyone>. Typical usage:
 
 Returns payment status for requested invoice or error code (in some cases).
 
-More info at L<Invoice management: nop|https://www.reg.com/support/help/API-version2#bill_nop>.
+More info at L<Invoice management: nop|https://www.reg.com/support/help/api2#bill_nop>.
 
 =head2 get_not_payed
 
@@ -82,7 +82,7 @@ Obtains a list of unpaid invoices. Scope: B<clients>. Typical usage:
 
 Returns a list of unpaind invoices if any.
 
-More info at L<Invoice management: get_not_payed|https://www.reg.com/support/help/API-version2#bill_get_not_payed>.
+More info at L<Invoice management: get_not_payed|https://www.reg.com/support/help/api2#bill_get_not_payed>.
 
 =head2 get_for_period
 
@@ -96,7 +96,7 @@ Obtains a list of invoices for the defined period. Scope: B<partners>. Typical u
 
 Returns a list of invoices at given period if any.
 
-More info at L<Invoice management: get_for_period|https://www.reg.com/support/help/API-version2#bill_get_for_period>
+More info at L<Invoice management: get_for_period|https://www.reg.com/support/help/api2#bill_get_for_period>
 
 =head2 change_pay_type
 
@@ -110,7 +110,7 @@ This one allows to change payment method for selected invoice(s). Scope: B<clien
 
 Returns a list of invoices with payment information and status.
 
-More info at L<Invoice management: change_pay_type|https://www.reg.com/support/help/API-version2#bill_change_pay_type>
+More info at L<Invoice management: change_pay_type|https://www.reg.com/support/help/api2#bill_change_pay_type>
 
 =head2 delete
 
@@ -122,12 +122,12 @@ Allows to delete unpaid invoices. Scope: B<clients>. Typical usage:
 
 Returns a list of invoices which requested to delete and its status.
 
-More info at L<Invoice management: delete|https://www.reg.com/support/help/API-version2#bill_delete>
+More info at L<Invoice management: delete|https://www.reg.com/support/help/api2#bill_delete>
 
 =head1 CAVEATS
 
 Bear in mind that might be errors during API requests. You should always check API call status.
-See L<Common error codes|https://www.reg.com/support/help/API-version2#std_error_codes>.
+See L<Common error codes|https://www.reg.com/support/help/api2#common_errors>.
 
 =head1 SEE ALSO
 
@@ -135,9 +135,9 @@ L<Regru::API>
 
 L<Regru::API::Role::Client>
 
-L<REG.API Invoice management|https://www.reg.com/support/help/API-version2#bill_fn>
+L<REG.API Invoice management|https://www.reg.com/support/help/api2#bill_functions>
 
-L<REG.API Common error codes|https://www.reg.com/support/help/API-version2#std_error_codes>.
+L<REG.API Common error codes|https://www.reg.com/support/help/api2#common_errors>
 
 =head1 BUGS
 
