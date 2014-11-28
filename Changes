@@ -1,5 +1,16 @@
 Revision history for Perl distribution Regru-API.
 
+0.045   Fri Nov 28 11:58:44 2014 +0000
+
+    [ FEATURES ]
+    - added new REG.API method "add_spf"
+
+    [ TESTS ]
+    - added a few namespace tests
+
+    [ MISC ]
+    - fixed 'missing_build_prereqs' error
+
 0.044   Mon Jun 30 11:00:37 2014 +0000
 
     [ FEATURES ]

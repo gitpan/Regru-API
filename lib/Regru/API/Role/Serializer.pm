@@ -9,7 +9,7 @@ use JSON;
 use Carp;
 use namespace::autoclean;
 
-our $VERSION = '0.044'; # VERSION
+our $VERSION = '0.045'; # VERSION
 our $AUTHORITY = 'cpan:IMAGO'; # AUTHORITY
 
 has serializer => (
@@ -33,7 +33,7 @@ Regru::API::Role::Serializer - something that can (de)serialize
 
 =head1 VERSION
 
-version 0.044
+version 0.045
 
 =head1 SYNOPSIS
 

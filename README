@@ -2,7 +2,7 @@ NAME
     Regru::API - Perl bindings for Reg.ru API v2
 
 VERSION
-    version 0.044
+    version 0.045
 
 SYNOPSIS
         my $client = Regru::API->new(
